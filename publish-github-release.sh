@@ -10,7 +10,7 @@ fi
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-VERSION="$(cat fullversion.txt)"
+VERSION="$(cat full-version.txt)"
 
 echo "  Version: $VERSION"
 
