@@ -16,7 +16,7 @@ fi
 
 sh clean.sh
 
-VERSION="$(cat fullversion.txt)"
+VERSION="$(cat full-version.txt)"
 
 #mkdir -p $TMP_RELEASE_FOLDER
 
