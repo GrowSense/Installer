@@ -39,9 +39,13 @@ mkdir -p $RELEASES_FOLDER
 
 #cd .tmp/BridgeArduinoSerialToMqttSplitCsv
 
+DIR=$PWD
+
 echo ""
 echo "  Zipping release..."
-zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip $PWD/bin/Release/GSInstaller.exe
+cd bin/Release/
+zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip GSInstaller.exe
+cd $DIR
 
 #cd $DIR/releases
 
