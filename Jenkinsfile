@@ -48,6 +48,12 @@ pipeline {
               sh 'sh increment-version.sh'
             }
         }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
+            }
+        }
         stage('Create Release Zip') {
             when { expression { !shouldSkipBuild() } }
             steps {
@@ -78,10 +84,16 @@ pipeline {
                 sh 'sh graduate.sh'
             }
         }
-        stage('Push Version') {
+        stage('Increment Cycle') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh push-version.sh'
+              sh 'sh increment-cycle.sh'
+            }
+        }
+        stage('Push Cycle') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-cycle.sh'
             }
         }
     }

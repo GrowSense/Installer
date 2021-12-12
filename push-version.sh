@@ -3,8 +3,8 @@
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$BRANCH" = "dev" ];  then
-  git commit buildnumber.txt -m "Updated build number [ci skip]" && \
-  git commit fullversion.txt -m "Updated version [ci skip]" && \
+  git commit buildnumber.txt -m "Updated build number" && \
+  git commit fullversion.txt -m "Updated version" && \
   git pull origin $BRANCH --quiet && \
   git push origin $BRANCH --quiet
 else
