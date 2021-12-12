@@ -72,16 +72,16 @@ pipeline {
                 sh 'sh clean.sh'
             }
         }
-        stage('Push Version') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-                sh 'sh push-version.sh'
-            }
-        }
         stage('Graduate') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'sh graduate.sh'
+            }
+        }
+        stage('Push Version') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'sh push-version.sh'
             }
         }
     }
