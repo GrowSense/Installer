@@ -11,7 +11,11 @@ if [ ! "$BRANCH" ]; then
   BRANCH=dev
 fi
 
-FULL_VERSION=$(curl -s -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/fullversion.txt")
+FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/fullversion.txt?$(date +%s)"
+
+echo "  Full version URL: $FULL_VERSION_URL"
+
+FULL_VERSION=$(curl -s -H 'Cache-Control: no-cache' "$FULL_VERSION_URL")
 
 echo "  Full version: $FULL_VERSION"
 
