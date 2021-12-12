@@ -84,16 +84,6 @@ pipeline {
                 sh 'sh graduate.sh'
             }
         }
-        stage('Increment Cycle') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-            }
-        }
-        stage('Push Cycle') {
-            when { expression { !shouldSkipBuild() } }
-            steps {
-            }
-        }
     }
     post {
         always{
