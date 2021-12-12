@@ -96,8 +96,10 @@ pipeline {
         }
     }
     post {
-        sh 'sh increment-cycle.sh'
-        sh 'sh push-cycle.sh'
+        always{
+          sh 'sh increment-cycle.sh'
+          sh 'sh push-cycle.sh'
+        }
         success() {
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
