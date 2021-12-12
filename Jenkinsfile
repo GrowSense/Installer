@@ -60,6 +60,12 @@ pipeline {
                 sh 'bash publish-github-release.sh'
             }
         }
+        stage('Test') {
+            when { expression { !shouldSkipBuild() } }
+            steps {
+                sh 'bash test-script.sh'
+            }
+        }
         stage('Clean') {
             when { expression { !shouldSkipBuild() } }
             steps {
