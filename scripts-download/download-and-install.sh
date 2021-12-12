@@ -15,8 +15,8 @@ FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/
 
 echo "[download-and-install.sh]   Full version URL: $FULL_VERSION_URL"
 
-#FULL_VERSION=$(curl -sL "$FULL_VERSION_URL" -H "Cache-Control: no-cache, no-store, must-revalidate" -H "Pragma: no-cache" -H "Expires: 0")
-FULL_VERSION=$(wget --no-cache -O - "$FULL_VERSION_URL")
+FULL_VERSION=$(curl -sL "$FULL_VERSION_URL" -H "Cache-Control: no-cache, no-store, must-revalidate" -H "Pragma: no-cache" -H "Expires: 0")
+#FULL_VERSION=$(wget --no-cache -O - "$FULL_VERSION_URL")
 
 
 echo "[download-and-install.sh]   Full version: $FULL_VERSION"
