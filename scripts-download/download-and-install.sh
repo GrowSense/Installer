@@ -11,7 +11,7 @@ if [ ! "$BRANCH" ]; then
   BRANCH=dev
 fi
 
-FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/fullversion.txt?R=$(date +%s)"
+FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/full-version.txt?R=$(date +%s)"
 
 echo "[download-and-install.sh]   Full version URL: $FULL_VERSION_URL"
 
