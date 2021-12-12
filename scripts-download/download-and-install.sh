@@ -23,4 +23,13 @@ RELEASE_URL="https://github.com/GrowSense/Installer/releases/download/v$FULL_VER
 
 echo "  Release URL: $RELEASE_URL"
 
-$SUDO wget -nv --no-cache -O - $RELEASE_URL
+DOWNLOADED_FILE=GrowSenseInstaller.zip
+
+curl -L $RELEASE_URL -O $DOWNLOADED_FILE
+
+mkdir -p tmp
+
+unzip $DOWNLOADED_FILE -d tmp
+
+mono tmp/bin/Release/GSInstaller.exe
+#$SUDO wget -nv --no-cache -O - $RELEASE_URL

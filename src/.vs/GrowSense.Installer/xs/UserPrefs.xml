@@ -6,8 +6,8 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="GrowSense.Installer" expanded="True" selected="True">
-            <Node name="GrowSense.Installer" expanded="True" />
+          <Node name="GrowSense.Installer" expanded="True">
+            <Node name="GrowSense.Installer" expanded="True" selected="True" />
           </Node>
         </State>
       </Pad>
