@@ -23,7 +23,7 @@ RELEASE_URL="https://github.com/GrowSense/Installer/releases/download/v$FULL_VER
 
 echo "  Release URL: $RELEASE_URL"
 
-DOWNLOADED_FILE=GrowSenseInstaller.zip
+DOWNLOADED_FILE=$PWD/GrowSenseInstaller.zip
 
 curl -L $RELEASE_URL -O $DOWNLOADED_FILE
 
