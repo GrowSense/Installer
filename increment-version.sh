@@ -20,7 +20,7 @@ then
 
     echo $CURRENT_VERSION > buildnumber.txt
 
-    echo $(cat version.txt).$(cat buildnumber.txt) > fullversion.txt
+    echo $(cat version.txt).$(cat buildnumber.txt) > full-version.txt
 else
     echo "Skipping increment version. Version is only incremented in 'dev' branch not '$BRANCH' branch"
 fi
