@@ -41,7 +41,7 @@ mkdir -p $RELEASES_FOLDER
 
 echo ""
 echo "  Zipping release..."
-zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip *.dll
+zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip $PWD/bin/Release/GSInstaller.exe
 
 #cd $DIR/releases
 
