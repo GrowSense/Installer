@@ -16,7 +16,7 @@ fi
 
 sh clean.sh
 
-VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
+VERSION="$(cat fullversion.txt)"
 
 #mkdir -p $TMP_RELEASE_FOLDER
 
@@ -41,7 +41,7 @@ mkdir -p $RELEASES_FOLDER
 
 echo ""
 echo "  Zipping release..."
-zip -r $DIR/releases/GrowSense-Index.$VERSION$VERSION_POSTFIX.zip *
+zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip *
 
 #cd $DIR/releases
 

@@ -10,7 +10,7 @@ fi
 
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
-VERSION="$(cat version.txt)-$(cat buildnumber.txt)"
+VERSION="$(cat fullversion.txt)"
 
 echo "  Version: $VERSION"
 
@@ -19,12 +19,19 @@ if [ $BRANCH != "lts" ]; then
   POSTFIX="-$BRANCH"
 fi
 
-R=$RANDOM
+# TODO: Remove if not needed
+R=""
 
 REPOSITORY="$GITHUB_OWNER/$GITHUB_PROJECT"
-TAG="v$VERSION-$R$POSTFIX"
+TAG="v$VERSION$R$POSTFIX"
 RELEASE_NAME="$GITHUB_OWNER-$GITHUB_PROJECT.$VERSION$POSTFIX"
 RELEASE_DESCRIPTION="$GITHUB_OWNER $GITHUB_PROJECT $VERSION$POSTFIX $R"
+RELEASE_FILE="releases/$RELEASE_NAME.zip"
+
+if [ ! -f $RELEASE_FILE ]; then
+  echo "Can't find $RELEASE_FILE"
+  exit 1
+fi
 
 PRERELEASE="true"
 if [ $BRANCH = "lts" ]; then
