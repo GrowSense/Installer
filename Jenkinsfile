@@ -60,7 +60,7 @@ pipeline {
                 sh 'bash publish-github-release.sh'
             }
         }
-        stage('Test') {
+        stage('Test Script') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'bash test-script.sh'
