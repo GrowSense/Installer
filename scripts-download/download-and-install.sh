@@ -11,11 +11,13 @@ if [ ! "$BRANCH" ]; then
   BRANCH=dev
 fi
 
-FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/fullversion.txt?$(date +%s)"
+FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/fullversion.txt?R=$(date +%s)"
 
 echo "[download-and-install.sh]   Full version URL: $FULL_VERSION_URL"
 
-FULL_VERSION=$(curl -s -H 'Cache-Control: no-cache' "$FULL_VERSION_URL")
+#FULL_VERSION=$(curl -sL "$FULL_VERSION_URL" -H "Cache-Control: no-cache, no-store, must-revalidate" -H "Pragma: no-cache" -H "Expires: 0")
+FULL_VERSION=$(wget -O - "$FULL_VERSION_URL")
+
 
 echo "[download-and-install.sh]   Full version: $FULL_VERSION"
 
@@ -28,13 +30,14 @@ DOWNLOADED_FILE=$PWD/GrowSenseInstaller.zip
 echo ""
 echo "[download-and-install.sh]  Downloading release file..."
 
-curl -L $RELEASE_URL -O $DOWNLOADED_FILE
+#curl -L $RELEASE_URL -O $DOWNLOADED_FILE
+wget $RELEASE_URL -O $DOWNLOADED_FILE
 
 mkdir -p tmp
 
 echo ""
 echo "[download-and-install.sh]  Unzipping release file..."
-unzip $DOWNLOADED_FILE -d tmp
+unzip -o $DOWNLOADED_FILE -d tmp
 
-mono tmp/bin/Release/GSInstaller.exe
+mono tmp/GSInstaller.exe
 #$SUDO wget -nv --no-cache -O - $RELEASE_URL
