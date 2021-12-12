@@ -87,17 +87,17 @@ pipeline {
         stage('Increment Cycle') {
             when { expression { !shouldSkipBuild() } }
             steps {
-              sh 'sh increment-cycle.sh'
             }
         }
         stage('Push Cycle') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'sh push-cycle.sh'
             }
         }
     }
     post {
+        sh 'sh increment-cycle.sh'
+        sh 'sh push-cycle.sh'
         success() {
           emailext (
               subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
