@@ -2,14 +2,18 @@ echo "Testing download and install script..."
 
 DIR=$PWD
 
+bash pull-release-from-local.sh
+
 cd scripts-download/
 
 TMP_DIR=".tmp"
 
 mkdir -p $TMP_DIR
 
-OUTPUT=$(bash download-and-install.sh $)
-[[ "$OUTPUT" == *"Hello World"* ]] || exit 1
+echo "  Launching download-installer.sh"
+bash download-installer.sh dev .tmp
+#OUTPUT=$(bash download-installer.sh)
+#echo $OUTPUT
 
 rm $TMP_DIR -R
 cd $PWD

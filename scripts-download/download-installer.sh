@@ -19,11 +19,11 @@ if [ ! "$GROWSENSE_BASE_DIR" ]; then
   BRANCH="/usr/local/GrowSense/"
 fi
 
-INSTALLER_DIRECTORY="$GROWSENSE_BASE_DIR/Installer"
+INSTALLER_DIR="$GROWSENSE_BASE_DIR/Installer"
 
 echo "[download-and-install.sh]  Branch: $BRANCH"
 echo "[download-and-install.sh]  GrowSense Base Directory: $GROWSENSE_BASE_DIR"
-echo "[download-and-install.sh]  Installer Directory: $INSTALLER_DIRECTORY"
+echo "[download-and-install.sh]  Installer Directory: $INSTALLER_DIR"
 
 FULL_VERSION_URL="https://raw.githubusercontent.com/GrowSense/Installer/$BRANCH/full-version.txt?R=$(date +%s)"
 
@@ -51,7 +51,7 @@ mkdir -p $INSTALLER_DIR
 
 echo ""
 echo "[download-and-install.sh]  Unzipping release file..."
-unzip -o $DOWNLOADED_FILE -d $INSTALLER_DIR
+unzip -o $DOWNLOADED_FILE -d $INSTALLER_DIR/
 
 mono $INSTALLER_DIR/GSInstaller.exe
 
