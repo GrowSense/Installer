@@ -4,14 +4,14 @@ DIR=$PWD
 
 bash pull-release-from-local.sh
 
-cd scripts-download/
+rm GSInstaller.zip
 
-TMP_DIR=".tmp"
+TMP_DIR="$PWD/.tmp/GrowSense"
 
 mkdir -p $TMP_DIR
 
 echo "  Launching download-installer.sh"
-bash download-installer.sh dev .tmp
+bash scripts-download/download-installer.sh dev $TMP_DIR
 #OUTPUT=$(bash download-installer.sh)
 #echo $OUTPUT
 
