@@ -16,6 +16,17 @@ namespace GrowSense.Installer
 
       settings.Branch = arguments["branch"];
       settings.BaseInstallDirectory = Path.GetFullPath(arguments["install-to"]);
+
+      if (String.IsNullOrEmpty(settings.Branch))
+      {
+        Console.WriteLine("  Branch argument not specified. Choosing dev branch.");
+      }
+
+      if (String.IsNullOrEmpty(settings.BaseInstallDirectory))
+      {
+        throw new ArgumentException("Error: The install-to argument was not specified.");
+      }
+      
       
       settings.Version = arguments.Contains("version")
         ? arguments["version"]
