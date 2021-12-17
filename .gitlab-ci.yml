@@ -33,7 +33,7 @@ version:
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
     - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git
+    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
     - sh increment-version.sh
     - sh push-version.sh
   artifacts:
