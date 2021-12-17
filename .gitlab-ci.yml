@@ -13,6 +13,7 @@ build:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
     - sh build.sh
   artifacts:
     paths:
@@ -26,6 +27,7 @@ version:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
     - sh 'sh increment-version.sh'
     - sh 'sh push-version.sh'
   artifacts:
