@@ -28,6 +28,8 @@ version:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - sh increment-version.sh
     - sh push-version.sh
   artifacts:
