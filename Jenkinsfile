@@ -66,7 +66,7 @@ pipeline {
                 sh 'bash publish-github-release.sh'
             }
         }
-        stage('Test') {
+        stage('Test Install') {
             when { expression { !shouldSkipBuild() } }
             steps {
                 sh 'bash test-download-and-install.sh'
