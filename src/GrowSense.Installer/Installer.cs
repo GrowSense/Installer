@@ -22,6 +22,8 @@ namespace GrowSense.Installer
 
       var indexDir = ExtractReleaseZip(localZipFile);
 
+      Verify(indexDir);
+
       ExecutePostInstallActions(indexDir);
       //var releaseFinder = new ReleaseFinder(Settings);
 
@@ -35,9 +37,28 @@ namespace GrowSense.Installer
 
     public void ExecutePostInstallActions(string indexDir)
     {
+      Console.WriteLine("Executing post install actions...");
+      Console.WriteLine("  Index dir: " + indexDir);
+      
       var starter = new ProcessStarter(indexDir); 
       starter.Start("bash gs.sh post-install");
       Console.WriteLine(starter.Output);
+
+      Console.WriteLine("Finished execuing post install actions.");
+    }
+
+    public void Verify(string indexDir)
+    {
+      Console.WriteLine("Verify install...");
+      Console.WriteLine("  Index dir: " + indexDir);
+
+      if (!Directory.Exists(indexDir))
+        throw new DirectoryNotFoundException("Install failed. GrowSense Index directory not found: " + indexDir);
+
+      var gsScriptPath = Path.Combine(indexDir, "gs.sh");
+
+      if (!File.Exists(gsScriptPath))
+        throw new FileNotFoundException("Install failed. GrowSense Index gs.sh script not found: " + gsScriptPath);
     }
 
     public string DownloadRelease()
