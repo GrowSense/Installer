@@ -1,0 +1,28 @@
+image: 10.0.0.101:5000/ubuntu-loaded
+
+stages:
+  - build
+  - test
+
+
+build:
+  stage: build
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh build.sh
+  artifacts:
+    paths:
+      - lib/**
+      - bin/Release/**
+
+test:
+  stage: test
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh test-download-and-install.sh
+  dependencies:
+    - build

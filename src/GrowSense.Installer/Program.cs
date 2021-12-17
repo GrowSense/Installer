@@ -32,8 +32,6 @@ namespace GrowSense.Installer
         ? arguments["version"]
         : versionDetector.Detect();
 
-      settings.Version = "1-2-1-33";
-
       settings.AllowSkipDownload = arguments.Contains("allow-skip-download")
         ? Convert.ToBoolean(arguments["allow-skip-download"])
         : false;

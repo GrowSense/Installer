@@ -66,10 +66,10 @@ pipeline {
                 sh 'bash publish-github-release.sh'
             }
         }
-        stage('Test Script') {
+        stage('Test') {
             when { expression { !shouldSkipBuild() } }
             steps {
-                sh 'bash test-script.sh'
+                sh 'bash test-download-and-install.sh'
             }
         }
         stage('Clean') {

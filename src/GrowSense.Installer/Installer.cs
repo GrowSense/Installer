@@ -64,12 +64,17 @@ namespace GrowSense.Installer
 
     public string ExtractReleaseZip(string localZipFile)
     {
-    
-      var zipExtractor = new Unzipper();
-
       var growSenseIndexDir = Path.Combine(Settings.BaseInstallDirectory, Settings.ProjectName);
 
+      Console.WriteLine("  Extracting release zip...");
+      Console.WriteLine("    Zip file: " + localZipFile);
+      
+      var zipExtractor = new Unzipper();
+
       zipExtractor.Unzip(localZipFile, growSenseIndexDir);
+      
+      Console.WriteLine("    Version: " + File.ReadAllText(growSenseIndexDir + "/full-version.txt"));
+      
 
       return growSenseIndexDir;
     }
