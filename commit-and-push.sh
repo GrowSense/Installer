@@ -2,6 +2,7 @@ echo "Committing and pushing to repository..."
 echo ""
 
 bash clean.sh && \
+bash increment-version.sh && \
 git commit -am "$1" && \
 
 sh push.sh

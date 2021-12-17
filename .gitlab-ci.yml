@@ -22,26 +22,6 @@ build:
       - lib/**
       - bin/Release/**
 
-
-version:
-  stage: version
-  tags:
-    - docker
-  script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
-    - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
-    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
-    - git remote add lan https://10.0.0.101:180/growsense/installer.git || echo "Skipping"
-    - sh increment-version.sh
-    - sh push-version.sh
-  artifacts:
-    paths:
-      - buildnumber.txt
-      - version.txt
-      - full-version.txt
-
 release:
   stage: release
   tags:
@@ -52,7 +32,6 @@ release:
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
   script:
-    - sh increment-version.sh
     - bash create-release-zip.sh
     - bash publish-github-release.sh
   dependencies:
