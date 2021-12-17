@@ -28,8 +28,8 @@ version:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
-    - sh 'sh increment-version.sh'
-    - sh 'sh push-version.sh'
+    - sh increment-version.sh
+    - sh push-version.sh
   artifacts:
     paths:
       - buildnumber.txt
@@ -42,8 +42,8 @@ release:
     - docker
   script:
     - git checkout "$CI_COMMIT_BRANCH"
-    - sh 'bash create-release-zip.sh'
-    - sh 'bash publish-github-release.sh'
+    - bash create-release-zip.sh
+    - bash publish-github-release.sh
   dependencies:
     - build
     - version
