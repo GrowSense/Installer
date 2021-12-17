@@ -2,6 +2,8 @@ image: 10.0.0.101:5000/ubuntu-loaded
 
 stages:
   - build
+  - version
+  - release
   - test
 
 
@@ -17,6 +19,33 @@ build:
       - lib/**
       - bin/Release/**
 
+
+version:
+  stage: version
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh 'sh increment-version.sh'
+    - sh 'sh push-version.sh'
+  artifacts:
+    paths:
+      - buildnumber.txt
+      - version.txt
+      - full-version.txt
+
+release:
+  stage: release
+  tags:
+    - docker
+  script:
+    - git checkout "$CI_COMMIT_BRANCH"
+    - sh 'bash create-release-zip.sh'
+    - sh 'bash publish-github-release.sh'
+  dependencies:
+    - build
+    - version
+
 test:
   stage: test
   tags:
@@ -24,5 +53,3 @@ test:
   script:
     - git checkout "$CI_COMMIT_BRANCH"
     - sh test-download-and-install.sh
-  dependencies:
-    - build
