@@ -17,6 +17,8 @@ namespace GrowSense.Installer
       settings.Branch = arguments["branch"];
       settings.BaseInstallDirectory = Path.GetFullPath(arguments["install-to"]);
 
+      FixBaseInstallDirectory(settings);
+
       if (String.IsNullOrEmpty(settings.Branch))
       {
         Console.WriteLine("  Branch argument not specified. Choosing dev branch.");
@@ -43,6 +45,12 @@ namespace GrowSense.Installer
       var installer = new Installer(settings);
 
       installer.Install();
+    }
+
+    static public void FixBaseInstallDirectory(Settings settings)
+    {
+      if (settings.BaseInstallDirectory.TrimEnd('/').EndsWith("Index"))
+        settings.BaseInstallDirectory = Path.GetDirectoryName(settings.BaseInstallDirectory.TrimEnd('/'));
     }
   }
 }
