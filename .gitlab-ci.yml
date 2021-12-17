@@ -46,6 +46,11 @@ release:
   stage: release
   tags:
     - docker
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
   script:
     - bash create-release-zip.sh
     - bash publish-github-release.sh
