@@ -58,5 +58,4 @@ test:
   tags:
     - docker
   script:
-    - git checkout "$CI_COMMIT_BRANCH"
     - sh test-download-and-install.sh
