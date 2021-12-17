@@ -15,7 +15,7 @@ VERSION="$(cat full-version.txt)"
 echo "  Version: $VERSION"
 
 POSTFIX=""
-if [ $BRANCH != "lts" ]; then
+if [ "$BRANCH" != "lts" ]; then
   POSTFIX="-$BRANCH"
 fi
 
