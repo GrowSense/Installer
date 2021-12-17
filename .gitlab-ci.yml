@@ -12,6 +12,8 @@ build:
   tags:
     - docker
   script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull
     - sh build.sh
@@ -26,10 +28,12 @@ version:
   tags:
     - docker
   script:
-    - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
+    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
+    - git remote set-url lan https://10.0.0.101:180/growsense/installer.git
     - sh increment-version.sh
     - sh push-version.sh
   artifacts:
