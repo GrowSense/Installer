@@ -38,7 +38,7 @@ tmp_dir="$PWD/.tmp/GrowSense"
 mkdir -p $tmp_dir
 
 echo "[test-script.sh]   Launching download-installer.sh"
-bash scripts-download/download-installer.sh --branch=dev --to=$tmp_dir || exit 1
+bash scripts-download/download-installer.sh --branch=dev --to=$tmp_dir --allow-skip-download=true || exit 1
 #OUTPUT=$(bash download-installer.sh)
 #echo $OUTPUT
 
