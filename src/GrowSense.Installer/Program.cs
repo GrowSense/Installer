@@ -35,7 +35,7 @@ namespace GrowSense.Installer
       if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
       {
         settings.Version = arguments.Contains("version")
-          ? arguments["version"].Replace("-", ".")
+          ? arguments["version"].Replace(".", "-")
           : versionDetector.Detect();
       }
       else
