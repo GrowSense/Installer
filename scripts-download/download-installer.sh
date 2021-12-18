@@ -60,6 +60,31 @@ echo "[GSInstaller | download-installer.sh]  Branch: $branch"
 echo "[GSInstaller | download-installer.sh]  GrowSense Base Directory: $growsense_dir"
 echo "[GSInstaller | download-installer.sh]  Installer Directory: $installer_dir"
 
+
+echo "Installing mono..."
+
+if ! type "xbuild" &>/dev/null; then
+    echo "  Installing mono"
+    sudo apt-get update -qq && sudo apt-get install -y tzdata mono-runtime mono-xsp4 ca-certificates-mono || exit 1  
+else
+  echo "  Mono is already installed. Skipping install."
+fi
+
+if ! type "xsp4" &>/dev/null; then
+    echo "  Installing mono xsp4"
+    sudo apt-get install -y tzdata mono-xsp4 || exit 1
+else
+  echo "  Mono xsp4 is already installed. Skipping install."
+fi
+
+
+echo ""
+echo "  Checking mono version..."
+mono --version
+
+echo "Finished installing mono."
+
+
 echo "[GSInstaller | download-installer.sh]  Checking for local installer zip file..."
 echo "[GSInstaller | download-installer.sh]    $installer_dir/GrowSenseInstaller.zip"
 
