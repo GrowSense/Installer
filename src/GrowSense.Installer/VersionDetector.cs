@@ -12,9 +12,13 @@ namespace GrowSense.Installer
     public string Detect()
     {
       Console.WriteLine("  Detecting GrowSense version from GitHub repo...");
+
+      var url = "https://raw.githubusercontent.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/" + Settings.Branch + "/full-version.txt";
+
+      Console.WriteLine("    URL: " + url);
       
       var requestHelper = new WebRequestHelper();
-      var version = requestHelper.HttpGet("https://raw.githubusercontent.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/" + Settings.Branch + "/full-version.txt").Trim();
+      var version = requestHelper.HttpGet(url).Trim();
 
       Console.WriteLine("    Version: " + version);
       return version;
