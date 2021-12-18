@@ -44,6 +44,9 @@ namespace GrowSense.Installer
       starter.Start("bash gs.sh post-install --version=" + Settings.Version);
       Console.WriteLine(starter.Output);
 
+      if (starter.IsError)
+        throw new Exception("Install failed.");
+
       Console.WriteLine("Finished execuing post install actions.");
     }
 
