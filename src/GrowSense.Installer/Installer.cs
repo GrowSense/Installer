@@ -41,7 +41,7 @@ namespace GrowSense.Installer
       Console.WriteLine("  Index dir: " + indexDir);
       
       var starter = new ProcessStarter(indexDir); 
-      starter.Start("bash gs.sh post-install");
+      starter.Start("bash gs.sh post-install --version=" + Settings.Version);
       Console.WriteLine(starter.Output);
 
       Console.WriteLine("Finished execuing post install actions.");
