@@ -32,11 +32,12 @@ namespace GrowSense.Installer
       if (arguments.Contains("allow-skip-download"))
         settings.AllowSkipDownload = Convert.ToBoolean(arguments["allow-skip-download"]);
 
+      if (arguments.Contains("version"))
+        settings.Version = arguments["version"].Replace(".", "-");
+
       if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
       {
-        settings.Version = arguments.Contains("version")
-          ? arguments["version"].Replace(".", "-")
-          : versionDetector.Detect();
+        settings.Version = versionDetector.Detect();
       }
       else
         Console.WriteLine("  Skipping detect version");
