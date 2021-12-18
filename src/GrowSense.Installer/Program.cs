@@ -50,6 +50,7 @@ namespace GrowSense.Installer
       Console.WriteLine("  GrowSense index dir: " + settings.IndexDirectory);
       Console.WriteLine("  Installer dir: " + settings.InstallerDirectory);
       Console.WriteLine("  Version: " + settings.Version);
+      Console.WriteLine("  Allow skip download (if file is found locally): " + settings.AllowSkipDownload);
 
       var installer = new Installer(settings);
 

@@ -23,7 +23,7 @@ namespace GrowSense.Installer
     }
 
 
-    public string Version { get; internal set; }
-    public bool AllowSkipDownload { get; internal set; }
+    public string Version = "0.0.0.0";
+    public bool AllowSkipDownload = false;
   }
 }
