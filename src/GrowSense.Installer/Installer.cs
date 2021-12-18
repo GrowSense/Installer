@@ -16,7 +16,7 @@ namespace GrowSense.Installer
     {
       Console.WriteLine("Installing GrowSense...");
 
-      EnsureDirectoryExists(Settings.BaseInstallDirectory);
+      EnsureDirectoryExists(Settings.ParentDirectory);
 
       var localZipFile = DownloadRelease();
 
@@ -68,11 +68,14 @@ namespace GrowSense.Installer
 
       var fileName = "GrowSenseIndex.zip";
 
-      var installerDir = Path.Combine(Settings.BaseInstallDirectory, "Installer");
+      var installerDir = Settings.InstallerDirectory;
+
+      if (!installerDir.TrimEnd('/').EndsWith("GrowSense/Installer"))
+        throw new Exception("Path doesn't end with GrowSense/Installer: " + installerDir);
 
       EnsureDirectoryExists(installerDir);
 
-      var localZipFilePath = Path.Combine(Settings.BaseInstallDirectory, "Installer/" + fileName);
+      var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
       //destination = "test.zip"; //Path.GetFullPath("test.zip");
 
       if (File.Exists(localZipFilePath) && Settings.AllowSkipDownload)
@@ -85,7 +88,10 @@ namespace GrowSense.Installer
 
     public string ExtractReleaseZip(string localZipFile)
     {
-      var growSenseIndexDir = Path.Combine(Settings.BaseInstallDirectory, Settings.ProjectName);
+      var growSenseIndexDir = Path.Combine(Settings.GrowSenseDirectory, Settings.ProjectName);
+
+      if (!growSenseIndexDir.TrimEnd('/').EndsWith("GrowSense/Index"))
+        throw new Exception("Path doesn't end with GrowSense/Index: " + growSenseIndexDir);
 
       Console.WriteLine("  Extracting release zip...");
       Console.WriteLine("    Zip file: " + localZipFile);

@@ -6,6 +6,8 @@ DIR=$PWD
 #BIN_RELEASE_FOLDER="bin/Release"
 RELEASES_FOLDER="releases"
 
+rm releases/ -R
+
 BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 VERSION_POSTFIX=""

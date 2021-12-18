@@ -15,7 +15,7 @@ namespace GrowSense.Installer
       var versionDetector = new VersionDetector(settings);
 
       settings.Branch = arguments["branch"];
-      settings.BaseInstallDirectory = Path.GetFullPath(arguments["install-to"]);
+      settings.ParentDirectory = Path.GetFullPath(arguments["install-to"]);
 
       FixBaseInstallDirectory(settings);
 
@@ -24,22 +24,31 @@ namespace GrowSense.Installer
         Console.WriteLine("  Branch argument not specified. Choosing dev branch.");
       }
 
-      if (String.IsNullOrEmpty(settings.BaseInstallDirectory))
+      if (String.IsNullOrEmpty(settings.ParentDirectory))
       {
         throw new ArgumentException("Error: The install-to argument was not specified.");
       }
       
       
-      settings.Version = arguments.Contains("version")
-        ? arguments["version"]
-        : versionDetector.Detect();
-
       settings.AllowSkipDownload = arguments.Contains("allow-skip-download")
         ? Convert.ToBoolean(arguments["allow-skip-download"])
         : false;
 
+      if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
+      {
+        settings.Version = arguments.Contains("version")
+          ? arguments["version"]
+          : versionDetector.Detect();
+      }
+      else
+        Console.WriteLine("  Skipping detect version");
+
+
       Console.WriteLine("  Branch: " + settings.Branch);
-      Console.WriteLine("  Install dir: " + settings.BaseInstallDirectory);
+      Console.WriteLine("  Parent install dir: " + settings.ParentDirectory);
+      Console.WriteLine("  GrowSense base dir: " + settings.GrowSenseDirectory);
+      Console.WriteLine("  GrowSense index dir: " + settings.IndexDirectory);
+      Console.WriteLine("  Installer dir: " + settings.InstallerDirectory);
       Console.WriteLine("  Version: " + settings.Version);
 
       var installer = new Installer(settings);
@@ -49,8 +58,11 @@ namespace GrowSense.Installer
 
     static public void FixBaseInstallDirectory(Settings settings)
     {
-      if (settings.BaseInstallDirectory.TrimEnd('/').EndsWith("Index"))
-        settings.BaseInstallDirectory = Path.GetDirectoryName(settings.BaseInstallDirectory.TrimEnd('/'));
+      if (settings.ParentDirectory.TrimEnd('/').EndsWith("Index"))
+        settings.ParentDirectory = Path.GetDirectoryName(settings.ParentDirectory.TrimEnd('/'));
+        
+      if (settings.ParentDirectory.TrimEnd('/').EndsWith("GrowSense"))
+        settings.ParentDirectory = Path.GetDirectoryName(settings.ParentDirectory.TrimEnd('/'));
     }
   }
 }
