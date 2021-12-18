@@ -29,10 +29,8 @@ namespace GrowSense.Installer
         throw new ArgumentException("Error: The install-to argument was not specified.");
       }
       
-      
-      settings.AllowSkipDownload = arguments.Contains("allow-skip-download")
-        ? Convert.ToBoolean(arguments["allow-skip-download"])
-        : false;
+      if (arguments.Contains("allow-skip-download"))
+        settings.AllowSkipDownload = Convert.ToBoolean(arguments["allow-skip-download"]);
 
       if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
       {
