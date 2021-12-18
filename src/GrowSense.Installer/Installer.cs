@@ -100,8 +100,7 @@ namespace GrowSense.Installer
 
       zipExtractor.Unzip(localZipFile, growSenseIndexDir);
       
-      Console.WriteLine("    Version: " + File.ReadAllText(growSenseIndexDir + "/full-version.txt"));
-      
+      Console.WriteLine("    Version (found): " + File.ReadAllText(growSenseIndexDir + "/full-version.txt"));
 
       return growSenseIndexDir;
     }
