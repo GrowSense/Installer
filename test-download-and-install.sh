@@ -42,6 +42,9 @@ bash scripts-download/download-installer.sh --branch=dev --to=$tmp_dir || exit 1
 #OUTPUT=$(bash download-installer.sh)
 #echo $OUTPUT
 
+cd $DIR/.tmp/GrowSense/Index
+sudo bash gs.sh config --mqtt-username user123456789 --mqtt-password pass123456789
+
 #rm $tmp_dir -R
 cd $PWD
 
