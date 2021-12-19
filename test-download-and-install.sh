@@ -41,7 +41,7 @@ mkdir -p $tmp_dir
 
 echo "[test-script.sh]   Launching download-installer.sh"
 
-CMD="scripts-download/download-installer.sh --branch=dev --to=$tmp_dir --allow-skip-download=true --enable-download=false --version=$(cat ../Index/full-version.txt)"
+CMD="scripts-download/download-installer.sh --branch=dev --to=$tmp_dir --allow-skip-download=true --version=$(cat ../Index/full-version.txt)"
 echo "Command: $CMD"
 
 bash $CMD || exit 1
