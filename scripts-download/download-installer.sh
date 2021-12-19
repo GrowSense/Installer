@@ -131,6 +131,6 @@ fi
 
 echo ""
 echo "[GSInstaller | download-installer.sh]  Launching installer..."
-sudo mono $installer_dir/GSInstaller.exe --branch=$branch --install-to=$install_to $3 $4 $5 $6 $7 $8 $9 || exit 1
+sudo mono $installer_dir/GSInstaller.exe install --branch=$branch --install-to=$install_to $3 $4 $5 $6 $7 $8 $9 || exit 1
 
 echo "[GSInstaller | download-installer.sh] Finished downloading installer."

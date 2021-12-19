@@ -33,7 +33,7 @@ namespace GrowSense.Installer
         settings.EnableDownload = Convert.ToBoolean(arguments["enable-download"]);
       else
         settings.EnableDownload = true;
-      
+
       if (arguments.Contains("allow-skip-download"))
         settings.AllowSkipDownload = Convert.ToBoolean(arguments["allow-skip-download"]);
 
@@ -56,9 +56,36 @@ namespace GrowSense.Installer
       Console.WriteLine("  Version (target): " + settings.Version);
       Console.WriteLine("  Allow skip download (if file is found locally): " + settings.AllowSkipDownload);
 
+
+      if (arguments.KeylessArguments.Length == 0)
+      {
+        Console.WriteLine("  Please specify a command as an argument: install, upgrade, uninstall, reinstall");
+        Environment.Exit(1);
+      }
+
+      var command = arguments.KeylessArguments[0];
+
       var installer = new Installer(settings);
 
-      installer.Install();
+      switch (command)
+      {
+        case "install":
+          installer.Install();
+          break;
+        case "upgrade":
+          installer.Upgrade();
+          break;
+        case "uninstall":
+          installer.Uninstall();
+          break;
+        case "reinstall":
+          installer.Reinstall();
+          break;
+        default:
+          Console.WriteLine("  Unknown command: " + command);
+          Environment.Exit(1);
+          break;
+      }
     }
 
     static public void FixBaseInstallDirectory(Settings settings)

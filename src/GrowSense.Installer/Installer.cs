@@ -99,6 +99,21 @@ namespace GrowSense.Installer
       return localZipFilePath;
     }
 
+    public void Reinstall()
+    {
+      throw new NotImplementedException();
+    }
+
+    public void Uninstall()
+    {
+      throw new NotImplementedException();
+    }
+
+    public void Upgrade()
+    {
+      throw new NotImplementedException();
+    }
+
     public string ExtractReleaseZip(string localZipFile)
     {
       var growSenseIndexDir = Path.Combine(Settings.GrowSenseDirectory, Settings.ProjectName);

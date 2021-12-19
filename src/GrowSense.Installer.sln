@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowSense.Installer", "GrowSense.Installer\GrowSense.Installer.csproj", "{1764EA6E-C93D-40AB-8980-813AFEDC7A29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrowSense.Installer.Tests", "GrowSense.Installer.Tests\GrowSense.Installer.Tests.csproj", "{6CFB2707-0F74-4301-8BD2-1CCA0AE1AA6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{1764EA6E-C93D-40AB-8980-813AFEDC7A29}.Debug|x86.Build.0 = Debug|x86
 		{1764EA6E-C93D-40AB-8980-813AFEDC7A29}.Release|x86.ActiveCfg = Release|x86
 		{1764EA6E-C93D-40AB-8980-813AFEDC7A29}.Release|x86.Build.0 = Release|x86
+		{6CFB2707-0F74-4301-8BD2-1CCA0AE1AA6E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6CFB2707-0F74-4301-8BD2-1CCA0AE1AA6E}.Debug|x86.Build.0 = Debug|Any CPU
+		{6CFB2707-0F74-4301-8BD2-1CCA0AE1AA6E}.Release|x86.ActiveCfg = Release|Any CPU
+		{6CFB2707-0F74-4301-8BD2-1CCA0AE1AA6E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		outputpath = ../bin
