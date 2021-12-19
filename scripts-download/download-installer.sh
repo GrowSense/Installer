@@ -11,6 +11,7 @@ do
     case "$KEY" in
             --branch)              branch=${VALUE} ;;
             --to)    install_to=${VALUE} ;;     
+            --version)    version=${VALUE} ;;     
             *)   
     esac    
 
@@ -18,6 +19,7 @@ do
 done
 
 echo "[GSInstaller | download-installer.sh]   Branch: $branch"
+echo "[GSInstaller | download-installer.sh]   Version: $version"
 echo "[GSInstaller | download-installer.sh]   Install to: $install_to"
 
 #BRANCH=$1
@@ -131,6 +133,6 @@ fi
 
 echo ""
 echo "[GSInstaller | download-installer.sh]  Launching installer..."
-sudo mono $installer_dir/GSInstaller.exe install --branch=$branch --install-to=$install_to $3 $4 $5 $6 $7 $8 $9 || exit 1
+sudo mono $installer_dir/GSInstaller.exe install --branch=$branch --install-to=$install_to --version=$version $4 $5 $6 $7 $8 $9 || exit 1
 
 echo "[GSInstaller | download-installer.sh] Finished downloading installer."
