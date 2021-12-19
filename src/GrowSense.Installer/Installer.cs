@@ -45,7 +45,16 @@ namespace GrowSense.Installer
       Console.WriteLine(starter.Output);
 
       if (starter.IsError)
-        throw new Exception("Install failed.");
+      {
+        Console.WriteLine("Error: An error occurred during installation.");
+        Environment.Exit(1);
+      }
+
+      if (starter.Output.IndexOf("GrowSense installation verified") == -1)
+      {
+        Console.WriteLine("Error: GrowSense installation was not verified.");
+        Environment.Exit(1);
+      }
 
       Console.WriteLine("Finished execuing post install actions.");
     }
@@ -65,8 +74,7 @@ namespace GrowSense.Installer
     }
 
     public string DownloadRelease()
-    {
-    
+    { 
       var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
 
       var fileName = "GrowSenseIndex.zip";
@@ -81,7 +89,9 @@ namespace GrowSense.Installer
       var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
       //destination = "test.zip"; //Path.GetFullPath("test.zip");
 
-      if (File.Exists(localZipFilePath) && Settings.AllowSkipDownload)
+      if (!Settings.EnableDownload)
+        Console.WriteLine("  Download not enabled. Skipping download.");
+      else if (File.Exists(localZipFilePath) && Settings.AllowSkipDownload)
         Console.WriteLine("  Zip file exists. Skipping download...");
       else
         Downloader.Download(releaseUrl, localZipFilePath);

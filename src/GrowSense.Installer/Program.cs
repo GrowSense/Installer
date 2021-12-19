@@ -28,6 +28,11 @@ namespace GrowSense.Installer
       {
         throw new ArgumentException("Error: The install-to argument was not specified.");
       }
+
+      if (arguments.Contains("enable-download"))
+        settings.EnableDownload = Convert.ToBoolean(arguments["enable-download"]);
+      else
+        settings.EnableDownload = true;
       
       if (arguments.Contains("allow-skip-download"))
         settings.AllowSkipDownload = Convert.ToBoolean(arguments["allow-skip-download"]);

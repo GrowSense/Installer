@@ -22,6 +22,7 @@ namespace GrowSense.Installer
       get { return Path.Combine(GrowSenseDirectory, ProjectName); }
     }
 
+    public bool EnableDownload = true;
 
     public string Version = "0.0.0.0";
     public bool AllowSkipDownload = false;
