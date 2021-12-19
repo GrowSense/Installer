@@ -16,6 +16,8 @@ namespace GrowSense.Installer
 
       settings.Branch = arguments["branch"];
       settings.ParentDirectory = Path.GetFullPath(arguments["install-to"]);
+      if (arguments.Contains("to")) // Argument alias
+        settings.ParentDirectory = Path.GetFullPath(arguments["to"]);
 
       FixBaseInstallDirectory(settings);
 
@@ -46,6 +48,9 @@ namespace GrowSense.Installer
       }
       else
         Console.WriteLine("  Skipping detect version");
+
+      if (arguments.Contains("test"))
+        settings.IsTest = Convert.ToBoolean(arguments["test"]);
 
 
       Console.WriteLine("  Branch: " + settings.Branch);

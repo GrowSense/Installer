@@ -6,7 +6,7 @@ sudo rm .tmp -R
 
 echo "[test-script.sh]   Creating release zip..."
 
-bash build.sh || exit 1
+bash build-cli.sh || exit 1
 bash create-release-zip.sh || exit 1
 
 RELEASE_FILE=""
