@@ -42,4 +42,4 @@ test:
   tags:
     - docker
   script:
-    - sh test-download-and-install.sh
+    - sh test.sh
