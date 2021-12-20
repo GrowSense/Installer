@@ -10,7 +10,7 @@ namespace GrowSense.Installer
 
     public void Download(string url, string destination)
     {
-      Console.WriteLine("  Downloading GrowSense...");
+      Console.WriteLine("  Downloading file...");
       Console.WriteLine("    URL: " + url);
       Console.WriteLine("    Destination: " + destination);
 
@@ -22,7 +22,7 @@ namespace GrowSense.Installer
       catch (Exception ex)
       {
         var starter = new ProcessStarter();
-        starter.Start("wget -q " + url + " -O " + destination);
+        starter.Start("wget " + url + " -O " + destination);
       }
     }
   }

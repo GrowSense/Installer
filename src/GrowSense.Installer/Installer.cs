@@ -128,7 +128,11 @@ namespace GrowSense.Installer
 
       zipExtractor.Unzip(localZipFile, growSenseIndexDir);
       
-      Console.WriteLine("    Version (found): " + File.ReadAllText(growSenseIndexDir + "/full-version.txt"));
+      var versionFile = growSenseIndexDir + "/full-version.txt";
+      if (!File.Exists(versionFile))
+        throw new Exception("Error: Didn't find version file at " + versionFile);
+      
+      Console.WriteLine("    Version (found): " + File.ReadAllText(versionFile));
 
       return growSenseIndexDir;
     }
