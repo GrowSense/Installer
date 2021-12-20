@@ -42,6 +42,11 @@ test:
   stage: test
   tags:
     - docker
+  before_script:
+    - git config --global user.email "admin@makerzone.com.au"
+    - git config --global user.name "John Rebbeck"
+    - git checkout "$CI_COMMIT_BRANCH"
+    - git pull
   script:
     - sh test.sh
   dependencies:
