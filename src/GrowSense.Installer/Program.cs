@@ -7,6 +7,8 @@ namespace GrowSense.Installer
   {
     public static void Main(string[] args)
     {
+    //Environment.SetEnvironmentVariable("MONO_TLS_PROVIDER", "btls");
+    
       Console.WriteLine("Preparing to install GrowSense...");
 
       var arguments = new Arguments(args);
