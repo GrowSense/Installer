@@ -131,8 +131,15 @@ namespace GrowSense.Installer
       var versionFile = growSenseIndexDir + "/full-version.txt";
       if (!File.Exists(versionFile))
         throw new Exception("Error: Didn't find version file at " + versionFile);
-      
-      Console.WriteLine("    Version (found): " + File.ReadAllText(versionFile));
+
+      var foundVersion = File.ReadAllText(versionFile).Trim();
+      Console.WriteLine("    Version (found): " + foundVersion);
+
+      if (Settings.Version != foundVersion)
+      {
+        throw new Exception("Versions don't match... Expected: " + Settings.Version + "; Found: " + foundVersion + ";");
+      }
+        
 
       return growSenseIndexDir;
     }
