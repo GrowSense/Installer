@@ -259,7 +259,7 @@ namespace GrowSense.Installer.Tests
       return branchDetector.Branch;
     }
 
-    public void PullGrowSenseIndexRelease()
+    public void PullGrowSenseIndexReleaseZip(string version)
     {
       Console.WriteLine("Getting GrowSense Index files...");
 
@@ -292,6 +292,7 @@ namespace GrowSense.Installer.Tests
         //var starter = new ProcessStarter();
         var settings = new Settings();
         settings.Branch = branch;
+        settings.Version = version;
         settings.ParentDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
 
         var releaseDownloader = new ReleaseDownloader(settings);

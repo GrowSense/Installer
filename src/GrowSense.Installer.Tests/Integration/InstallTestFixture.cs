@@ -17,9 +17,9 @@ namespace GrowSense.Installer.Tests.Integration
 
       //PullInstaller();
       
-      PullGrowSenseIndexRelease();
-
       var version = GetGrowSenseVersion(branch);
+      
+      PullGrowSenseIndexReleaseZip(version);
 
       var starter = new ProcessStarter();
 
