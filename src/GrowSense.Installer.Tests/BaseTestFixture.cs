@@ -334,13 +334,17 @@ namespace GrowSense.Installer.Tests
       // If found locally (on dev machine)
       if (indexIsFoundLocally)
       {
+        Console.WriteLine("  From local files...");
+        Console.WriteLine("    " + sourceIndexPath);
+        
         var versionPath = sourceIndexPath + "/full-version.txt";
         version = File.ReadAllText(versionPath).Trim();
       }
       else // On build server, pull it from GitHub
       {
+        Console.WriteLine("  From GitHub repository...");
         var settings = new Settings();
-        settings.Branch = new BranchDetector(sourceIndexPath).Branch;
+        settings.Branch = new BranchDetector(ProjectDirectory).Branch;
         var versionDetector = new VersionDetector(settings);
         version = versionDetector.Detect();
       }
