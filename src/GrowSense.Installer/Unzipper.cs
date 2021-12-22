@@ -21,22 +21,22 @@ namespace GrowSense.Installer
 
       foreach (var file in ZipFile.Open(zipFile, ZipArchiveMode.Read).Entries)
       {
-       /*if (!String.IsNullOrEmpty(f.Name))
-        {
-          var destinationFileName = destination + "/" + f.Name;
-          f.ExtractToFile(destinationFileName, true);
-          //ZipFile.ExtractToDirectory(zipFile, destination);
-        }*/
-        
-        
-            string completeFileName = Path.Combine(destination, file.FullName);
-            string directory = Path.GetDirectoryName(completeFileName);
+        /*if (!String.IsNullOrEmpty(f.Name))
+         {
+           var destinationFileName = destination + "/" + f.Name;
+           f.ExtractToFile(destinationFileName, true);
+           //ZipFile.ExtractToDirectory(zipFile, destination);
+         }*/
 
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
 
-            if (file.Name != "")
-                file.ExtractToFile(completeFileName, true);
+        string completeFileName = Path.Combine(destination, file.FullName);
+        string directory = Path.GetDirectoryName(completeFileName);
+
+        if (!Directory.Exists(directory))
+          Directory.CreateDirectory(directory);
+
+        if (file.Name != "")
+          file.ExtractToFile(completeFileName, true);
       }
     }
   }

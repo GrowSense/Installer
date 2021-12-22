@@ -16,7 +16,16 @@ namespace GrowSense.Installer.Tests
       var starter = new ProcessStarter (projectDirectory);
       starter.WriteOutputToConsole = false;
       starter.Start (cmd);
+
+      Validate(starter.Output, projectDirectory);
+      
       Branch = starter.Output.Trim ();
+    }
+
+    public void Validate(string output, string projectDirectory)
+    {
+      if (output.IndexOf("not a git repository") > -1)
+        throw new Exception("Can't detect git repository. Directory is not a git repository: " + projectDirectory);
     }
   }
 }

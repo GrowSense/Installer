@@ -9,30 +9,32 @@ namespace GrowSense.Installer.Tests.Integration
     [Test]
     public void Test_Install()
     {
+    
+      var branchDetector = new BranchDetector(ProjectDirectory);
+      var branch = branchDetector.Branch;
+      
       MoveToTemporaryDirectory();
 
       //PullInstaller();
       
       PullGrowSenseIndexRelease();
 
-      var version = GetGrowSenseVersion();
+      var version = GetGrowSenseVersion(branch);
 
       var starter = new ProcessStarter();
 
       var destination = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
 
-      var branchDetector = new BranchDetector(Environment.CurrentDirectory);
-      var branch = branchDetector.Branch;
 
       //starter.Start("mono GSInstaller.exe install --to=" + destination + " --branch=" + branch + " --enable-download=false --allow-skip-download=true");
 
       var settings = new Settings();
       settings.Branch = branch;
       settings.ParentDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
-      //settings.EnableDownload = false;
-      //settings.AllowSkipDownload = true;
+      settings.EnableDownload = false;
+      settings.AllowSkipDownload = true;
       settings.IsTest = true;
-      //settings.Version = version;
+      settings.Version = version;
       
       var installer = new Installer(settings);
       installer.Install();

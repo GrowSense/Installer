@@ -26,11 +26,6 @@ namespace GrowSense.Installer
       Verify(indexDir);
 
       ExecutePostInstallActions(indexDir);
-      //var releaseFinder = new ReleaseFinder(Settings);
-
-      //var output = releaseFinder.FindReleaseUrl();
-
-      //Console.WriteLine(output);
 
       Console.WriteLine("Finished installing to:");
       Console.WriteLine("  " + indexDir);
@@ -40,9 +35,10 @@ namespace GrowSense.Installer
     {
       Console.WriteLine("Executing post install actions...");
       Console.WriteLine("  Index dir: " + indexDir);
+      Console.WriteLine("  Is test: " + Settings.IsTest);
       
       var starter = new ProcessStarter(indexDir); 
-      starter.Start("bash gs.sh post-install --version=" + Settings.Version + " --mock-systemctl=true");
+      starter.Start("bash gs.sh post-install --version=" + Settings.Version + " --mock-systemctl=" + Settings.IsTest + " --mock-docker=" + Settings.IsTest);
       Console.WriteLine(starter.Output);
 
       if (starter.IsError)
@@ -140,7 +136,6 @@ namespace GrowSense.Installer
         throw new Exception("Versions don't match... Expected: " + Settings.Version + "; Found: " + foundVersion + ";");
       }
         
-
       return growSenseIndexDir;
     }
     

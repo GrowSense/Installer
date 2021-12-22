@@ -314,7 +314,7 @@ namespace GrowSense.Installer.Tests
       File.Copy(installerPath, TemporaryDirectory + "/GSInstaller.exe");
     }
 
-    public string GetGrowSenseVersion()
+    public string GetGrowSenseVersion(string branch)
     {
     
       Console.WriteLine("Getting GrowSense Index version...");
@@ -334,7 +334,7 @@ namespace GrowSense.Installer.Tests
       if (indexIsFoundLocally)
       {
         var versionPath = sourceIndexPath + "/full-version.txt";
-        version = File.ReadAllText(versionPath);
+        version = File.ReadAllText(versionPath).Trim();
       }
       else // On build server, pull it from GitHub
       {

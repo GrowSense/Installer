@@ -11,7 +11,7 @@ namespace GrowSense.Installer
     public string ParentDirectory;
     public string GrowSenseDirectory
     {
-      get { return Path.Combine(ParentDirectory, ProjectFamily); }
+      get { return Path.Combine(ParentDirectory.TrimEnd('/'), ProjectFamily); }
     }
     public string InstallerDirectory
     {
