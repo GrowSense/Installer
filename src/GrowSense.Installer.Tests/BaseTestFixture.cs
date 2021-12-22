@@ -10,6 +10,7 @@ namespace GrowSense.Installer.Tests
     public string ProjectDirectory;
     public string TemporaryDirectory;
     public TemporaryDirectoryCreator TmpDirCreator = new TemporaryDirectoryCreator ();
+    public bool ForceDownload = false;
 
     [SetUp]
     public void Initialize ()
@@ -263,7 +264,7 @@ namespace GrowSense.Installer.Tests
     {
       Console.WriteLine("Getting GrowSense Index files...");
 
-      var testIndexPath = Path.GetFullPath(Environment.CurrentDirectory + "/../Index");
+      var testIndexPath = Path.GetFullPath(Environment.CurrentDirectory + "/../../Index");
 
       Console.WriteLine("  Test index path: " + testIndexPath);
       
@@ -274,7 +275,7 @@ namespace GrowSense.Installer.Tests
       var indexIsFoundLocally = Directory.Exists(sourceIndexPath);
 
       // If found locally (on dev machine) copy it over
-      if (indexIsFoundLocally)
+      if (indexIsFoundLocally && !ForceDownload)
       {
         var starter = new ProcessStarter(sourceIndexPath);
         starter.Start("bash build-cli.sh");
@@ -332,7 +333,7 @@ namespace GrowSense.Installer.Tests
 
       var version = "";
       // If found locally (on dev machine)
-      if (indexIsFoundLocally)
+      if (indexIsFoundLocally && !ForceDownload)
       {
         Console.WriteLine("  From local files...");
         Console.WriteLine("    " + sourceIndexPath);

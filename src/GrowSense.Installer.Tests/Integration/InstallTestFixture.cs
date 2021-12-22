@@ -9,7 +9,7 @@ namespace GrowSense.Installer.Tests.Integration
     [Test]
     public void Test_Install()
     {
-    
+      ForceDownload = true;
       var branchDetector = new BranchDetector(ProjectDirectory);
       var branch = branchDetector.Branch;
       
@@ -31,7 +31,7 @@ namespace GrowSense.Installer.Tests.Integration
       var settings = new Settings();
       settings.Branch = branch;
       settings.ParentDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
-      settings.EnableDownload = false;
+      //settings.EnableDownload = false;
       settings.AllowSkipDownload = true;
       settings.IsTest = true;
       settings.Version = version;
