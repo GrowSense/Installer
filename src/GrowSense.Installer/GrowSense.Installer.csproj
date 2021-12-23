@@ -36,6 +36,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -44,12 +47,16 @@
     <Compile Include="Installer.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="FileDownloader.cs" />
-    <Compile Include="ReleaseFinder.cs" />
     <Compile Include="WebRequestHelper.cs" />
     <Compile Include="VersionDetector.cs" />
     <Compile Include="Unzipper.cs" />
     <Compile Include="ProcessStarter.cs" />
     <Compile Include="ReleaseDownloader.cs" />
+    <Compile Include="GitHub\ReleaseInfo.cs" />
+    <Compile Include="GitHub\ReleaseIdentifier.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GitHub\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using GrowSense.Installer.GitHub;
 namespace GrowSense.Installer
 {
   public class ReleaseDownloader
@@ -17,7 +18,11 @@ namespace GrowSense.Installer
       if (String.IsNullOrEmpty(Settings.InstallerDirectory))
         throw new Exception("Settings.InstallerDirectory is not set.");
 
-      var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
+      // var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
+
+      var releaseIdentifier = new ReleaseIdentifier();
+
+      var releaseUrl = releaseIdentifier.GetLatestReleaseUrl(Settings.Branch);
 
       var fileName = "GrowSenseIndex.zip";
 
