@@ -111,7 +111,7 @@ else
 
   echo "[GSInstaller | download-installer.sh]   Full version: $full_version"
 
-  release_url="https://github.com/GrowSense/Installer/releases/download/v$full_version-dev/GrowSense-Installer.$full_version-$branch.zip"
+  release_url="https://github.com/GrowSense/Installer/releases/download/v$full_version-$branch/GrowSense-Installer.$full_version-$branch.zip"
 
   echo "[GSInstaller | download-installer.sh]   Release URL: $release_url"
 
