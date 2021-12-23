@@ -21,14 +21,6 @@ namespace GrowSense.Installer
 
         var response = request.GetResponse() as HttpWebResponse;
 
-//        System.Net.ServicePointManager.ServerCertificateValidationCallback +=
-//  delegate(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate,
-//                          System.Security.Cryptography.X509Certificates.X509Chain chain,
-//                          System.Net.Security.SslPolicyErrors sslPolicyErrors)
-//      {
-//        return true; // **** Always accept
-//      };
-
         using (var responseStream = response.GetResponseStream())
         {
           var reader = new StreamReader(responseStream, Encoding.UTF8);
