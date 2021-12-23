@@ -9,7 +9,8 @@ namespace GrowSense.Installer.Tests.Integration
     [Test]
     public void Test_Install()
     {
-      ForceDownload = true;
+      ForceDownload = false; // Set this to true to test the download functionality. Otherwise leave it as false for faster tests.
+      
       var branchDetector = new BranchDetector(ProjectDirectory);
       var branch = branchDetector.Branch;
       

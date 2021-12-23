@@ -19,10 +19,18 @@ namespace GrowSense.Installer
         WebClient webClient = new WebClient();
         webClient.DownloadFile(url, destination);
       }
+      catch (WebException wex)
+      {
+        if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
+        {
+          throw new Exception("File not found at: " + url);
+        }
+      }
       catch (Exception ex)
       {
         var starter = new ProcessStarter();
         starter.Start("wget " + url + " -O " + destination);
+
       }
     }
   }

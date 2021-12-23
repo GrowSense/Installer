@@ -11,12 +11,12 @@ namespace GrowSense.Installer
     {
       Settings = settings;
     }
-    
+
     public string DownloadRelease()
     {
       if (String.IsNullOrEmpty(Settings.InstallerDirectory))
         throw new Exception("Settings.InstallerDirectory is not set.");
-        
+
       var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
 
       var fileName = "GrowSenseIndex.zip";
@@ -26,8 +26,8 @@ namespace GrowSense.Installer
       if (!installerDir.TrimEnd('/').EndsWith("GrowSense/Installer"))
         throw new Exception("Path doesn't end with GrowSense/Installer: " + installerDir);
 
-if (!Directory.Exists(installerDir))
-      Directory.CreateDirectory(installerDir);
+      if (!Directory.Exists(installerDir))
+        Directory.CreateDirectory(installerDir);
 
       var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
       //destination = "test.zip"; //Path.GetFullPath("test.zip");
