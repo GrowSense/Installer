@@ -13,16 +13,12 @@ namespace GrowSense.Installer
       Settings = settings;
     }
 
-    public string DownloadRelease()
+    public string DownloadRelease(string releaseUrl)
     {
       if (String.IsNullOrEmpty(Settings.InstallerDirectory))
         throw new Exception("Settings.InstallerDirectory is not set.");
 
       // var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
-
-      var releaseIdentifier = new ReleaseIdentifier();
-
-      var releaseUrl = releaseIdentifier.GetLatestReleaseUrl(Settings.Branch);
 
       var fileName = "GrowSenseIndex.zip";
 

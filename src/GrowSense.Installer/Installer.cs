@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using GrowSense.Installer.GitHub;
 namespace GrowSense.Installer
 {
   public class Installer
@@ -79,7 +80,14 @@ namespace GrowSense.Installer
 
     public string DownloadRelease()
     {
-      return Downloader.DownloadRelease();
+    
+      var releaseIdentifier = new ReleaseIdentifier();
+      releaseIdentifier.Initialize(Settings.Branch, Settings.Version);
+
+if (String.IsNullOrEmpty(Settings.Version) || Settings.Version == "latest")
+      Settings.Version = releaseIdentifier.Version;
+    
+      return Downloader.DownloadRelease(releaseIdentifier.ReleaseUrl);
     }
 
     public void Reinstall()

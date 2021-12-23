@@ -48,7 +48,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="FileDownloader.cs" />
     <Compile Include="WebRequestHelper.cs" />
-    <Compile Include="VersionDetector.cs" />
     <Compile Include="Unzipper.cs" />
     <Compile Include="ProcessStarter.cs" />
     <Compile Include="ReleaseDownloader.cs" />

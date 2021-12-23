@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
+using GrowSense.Installer.GitHub;
 
 
 namespace GrowSense.Installer.Tests
@@ -296,9 +297,12 @@ namespace GrowSense.Installer.Tests
         settings.Version = version;
         settings.ParentDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
 
+        var releaseIdentifier = new ReleaseIdentifier();
+        releaseIdentifier.Initialize(settings.Branch, settings.Version);
+
         var releaseDownloader = new ReleaseDownloader(settings);
 
-        releaseDownloader.DownloadRelease();
+        releaseDownloader.DownloadRelease(releaseIdentifier.ReleaseUrl);
         //var cloneCommand = "git clone --recursive -b " + branch + " https://github.com/GrowSense/Index.git " + testIndexPath;
         //starter.Start(cloneCommand);
       }
@@ -346,8 +350,8 @@ namespace GrowSense.Installer.Tests
         Console.WriteLine("  From GitHub repository...");
         var settings = new Settings();
         settings.Branch = new BranchDetector(ProjectDirectory).Branch;
-        var versionDetector = new VersionDetector(settings);
-        version = versionDetector.Detect();
+        //var versionDetector = new VersionDetector(settings);
+        version = "latest"; //versionDetector.Detect();
       }
 
       Console.WriteLine("  Version: " + version);

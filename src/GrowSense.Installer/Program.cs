@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using GrowSense.Installer.GitHub;
 
 namespace GrowSense.Installer
 {
@@ -14,7 +15,7 @@ namespace GrowSense.Installer
       var arguments = new Arguments(args);
 
       var settings = new Settings();
-      var versionDetector = new VersionDetector(settings);
+      //var versionDetector = new VersionDetector(settings);
 
       settings.Branch = arguments["branch"];
       settings.ParentDirectory = Path.GetFullPath(arguments["install-to"]);
@@ -43,13 +44,17 @@ namespace GrowSense.Installer
 
       if (arguments.Contains("version"))
         settings.Version = arguments["version"].Replace(".", "-");
+        
+        
 
-      if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
+      //var releaseUrl = releaseIdentifier.GetLatestReleaseUrl(Settings.Branch);
+
+      /*if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
       {
         settings.Version = versionDetector.Detect();
       }
       else
-        Console.WriteLine("  Skipping detect version");
+        Console.WriteLine("  Skipping detect version");*/
 
       if (arguments.Contains("test"))
         settings.IsTest = Convert.ToBoolean(arguments["test"]);
@@ -60,7 +65,7 @@ namespace GrowSense.Installer
       Console.WriteLine("  GrowSense base dir: " + settings.GrowSenseDirectory);
       Console.WriteLine("  GrowSense index dir: " + settings.IndexDirectory);
       Console.WriteLine("  Installer dir: " + settings.InstallerDirectory);
-      Console.WriteLine("  Version (target): " + settings.Version);
+      Console.WriteLine("  Version (target): " + (!String.IsNullOrEmpty(settings.Version) ? settings.Version : "latest"));
       Console.WriteLine("  Allow skip download (if file is found locally): " + settings.AllowSkipDownload);
 
 
