@@ -23,11 +23,11 @@ namespace GrowSense.Installer.GitHub
       ReleaseInfo latestRelease = null;
 
       if (String.IsNullOrEmpty(version) || version == "latest")
-        latestRelease = matchingReleases.OrderByDescending(r => r.CreatedAt).FirstOrDefault();
+        latestRelease = matchingReleases.OrderByDescending(r => r.CreatedAt).Where(r=>r.Assets.Length > 0).FirstOrDefault();
       else
-        latestRelease = matchingReleases.Where(r => r.TagName.IndexOf(version) > -1).FirstOrDefault();
+        latestRelease = matchingReleases.Where(r => r.TagName.IndexOf(version) > -1 && r.Assets.Length > 0).FirstOrDefault();
         
-      ReleaseUrl = latestRelease.AssetsUrl.ToString();
+      ReleaseUrl = latestRelease.Assets[0].BrowserDownloadUrl.ToString();
       Version = latestRelease.TagName.Replace("v", "").Replace("-" + branch, "");
     }
   }
