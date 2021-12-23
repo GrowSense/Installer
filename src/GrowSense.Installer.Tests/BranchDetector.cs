@@ -12,6 +12,9 @@ namespace GrowSense.Installer.Tests
 
     public void Initialize (string projectDirectory)
     {
+      Console.WriteLine("Detecting branch from git directory...");
+      Console.WriteLine("  " + projectDirectory);
+      
       var cmd = "/bin/bash -c \"echo $(git branch | sed -n -e 's/^\\* \\(.*\\)/\\1/p')\"";
       var starter = new ProcessStarter (projectDirectory);
       starter.WriteOutputToConsole = false;
@@ -20,6 +23,8 @@ namespace GrowSense.Installer.Tests
       Validate(starter.Output, projectDirectory);
       
       Branch = starter.Output.Trim ();
+
+      Console.WriteLine("  Branch: " + Branch);
     }
 
     public void Validate(string output, string projectDirectory)
