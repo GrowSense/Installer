@@ -39,7 +39,6 @@ namespace GrowSense.Installer
       
       var starter = new ProcessStarter(indexDir); 
       starter.Start("bash gs.sh post-install --version=" + Settings.Version + " --mock-systemctl=" + Settings.IsTest + " --mock-docker=" + Settings.IsTest);
-      Console.WriteLine(starter.Output);
 
       if (starter.IsError)
       {
