@@ -5,7 +5,7 @@ stages:
   - version
   - release
   - test
-
+  - graduate
 
 build:
   stage: build
@@ -52,7 +52,7 @@ test:
   dependencies:
     - build
     
-test:
+graduate:
   stage: graduate
   tags:
     - docker
