@@ -52,7 +52,7 @@ test:
   dependencies:
     - build
     
-test:
+graduate:
   stage: graduate
   tags:
     - docker
