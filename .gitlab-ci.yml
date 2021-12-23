@@ -11,11 +11,13 @@ build:
   stage: build
   tags:
     - docker
-  script:
+  before_script:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
+    - cat full-version.txt
+  script:
     - sh init.sh
     - sh build.sh
   artifacts:
@@ -31,7 +33,8 @@ release:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
+    - cat full-version.txt
   script:
     - bash create-release-zip.sh
     - bash publish-github-release.sh
@@ -46,7 +49,8 @@ test:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
-    - git pull
+    - git pull -f
+    - cat full-version.txt
   script:
     - sh test.sh
   dependencies:
@@ -62,6 +66,7 @@ graduate:
     - git config --global user.email "admin@makerzone.com.au"
     - git config --global user.name "John Rebbeck"
     - git checkout "$CI_COMMIT_BRANCH"
+    - cat full-version.txt
     - git pull -f
   script:
     - sh graduate.sh
