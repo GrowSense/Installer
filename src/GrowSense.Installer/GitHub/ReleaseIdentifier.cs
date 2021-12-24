@@ -24,6 +24,11 @@ namespace GrowSense.Installer.GitHub
       else
         latestRelease = GetLatestRelease(branch, version);
 
+      if (latestRelease == null || latestRelease.Assets.Length == 0)
+      {
+        throw new Exception("Can't find release for version " + version + " and " + branch + " branch.");
+      }
+
       ReleaseUrl = latestRelease.Assets[0].BrowserDownloadUrl.ToString();
       Version = latestRelease.TagName.Replace("-" + branch, "").Replace("v", "");
     }
