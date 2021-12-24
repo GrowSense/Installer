@@ -30,6 +30,7 @@ namespace GrowSense.Installer
       catch (Exception ex)
       {
         var starter = new ProcessStarter();
+        starter.WriteOutputToConsole = false;
         starter.Start("curl -s " + url + "");
         output = starter.Output.Trim();       
       }
