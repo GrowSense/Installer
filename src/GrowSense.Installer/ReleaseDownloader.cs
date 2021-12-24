@@ -33,11 +33,6 @@ namespace GrowSense.Installer
       var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
       //destination = "test.zip"; //Path.GetFullPath("test.zip");
 
-      if (!Settings.EnableDownload)
-        Console.WriteLine("  Download not enabled. Skipping download.");
-      else if (File.Exists(localZipFilePath) && Settings.AllowSkipDownload)
-        Console.WriteLine("  Zip file exists. Skipping download...");
-      else
         Downloader.Download(releaseUrl, localZipFilePath);
 
       return localZipFilePath;

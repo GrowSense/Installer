@@ -27,6 +27,11 @@ namespace GrowSense.Installer
     public bool EnableDownload = true;
 
     public string Version = "0.0.0.0";
+    public bool VersionIsSpecified
+    {
+      get { return !String.IsNullOrEmpty(Version) && Version != "0.0.0.0" && Version != "latest"; }
+    }
+    
     public bool AllowSkipDownload = false;
   }
 }

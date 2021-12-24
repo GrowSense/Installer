@@ -20,7 +20,7 @@ namespace GrowSense.Installer
 
       EnsureDirectoryExists(Settings.ParentDirectory);
 
-      var localZipFile = DownloadRelease();
+      var localZipFile = GetReleaseZipFile();
 
       var indexDir = ExtractReleaseZip(localZipFile);
 
@@ -78,16 +78,48 @@ namespace GrowSense.Installer
         throw new FileNotFoundException("Install failed. GrowSense Index gs.sh script not found: " + gsScriptPath);
     }
 
-    public string DownloadRelease()
+    public string GetReleaseZipFile()
     {
-    
-      var releaseIdentifier = new ReleaseIdentifier();
-      releaseIdentifier.Initialize(Settings.Branch, Settings.Version);
+      if (SkipReleaseDownload())
+      {
+        Console.WriteLine("  Skipping download.");
 
-if (String.IsNullOrEmpty(Settings.Version) || Settings.Version == "latest")
-      Settings.Version = releaseIdentifier.Version;
-    
-      return Downloader.DownloadRelease(releaseIdentifier.ReleaseUrl);
+        var fileName = "GrowSenseIndex.zip";
+
+        var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
+
+        return localZipFilePath;
+      }
+      else
+      {
+        var releaseIdentifier = new ReleaseIdentifier();
+        releaseIdentifier.Initialize(Settings.Branch, Settings.Version);
+
+        if (!Settings.VersionIsSpecified)
+          Settings.Version = releaseIdentifier.Version;
+
+        return Downloader.DownloadRelease(releaseIdentifier.ReleaseUrl);
+      }
+    }
+
+    public bool SkipReleaseDownload()
+    {
+      var fileName = "GrowSenseIndex.zip";
+      
+      var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
+
+      if (!Settings.EnableDownload)
+      {
+        Console.WriteLine("  Download not enabled.");
+        return true;
+      }
+      else if (File.Exists(localZipFilePath) && Settings.AllowSkipDownload)
+      {
+        Console.WriteLine("  Zip file exists.");
+        return true;
+      }
+      else
+        return false;
     }
 
     public void Reinstall()
@@ -138,7 +170,7 @@ if (String.IsNullOrEmpty(Settings.Version) || Settings.Version == "latest")
       var foundVersion = File.ReadAllText(versionFile).Trim();
       Console.WriteLine("    Version (found): " + foundVersion);
 
-      if (Settings.Version != foundVersion)
+      if (Settings.VersionIsSpecified && Settings.Version != foundVersion)
       {
         throw new Exception("Versions don't match... Expected: " + Settings.Version + "; Found: " + foundVersion + ";");
       }

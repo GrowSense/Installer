@@ -16,7 +16,7 @@ namespace GrowSense.Installer.Tests.Integration
       
       MoveToTemporaryDirectory();
 
-      var version = GetGrowSenseVersion(branch);
+      var version = "latest"; //GetGrowSenseVersion(branch);
       
       PullGrowSenseIndexReleaseZip(version);
 

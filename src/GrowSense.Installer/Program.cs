@@ -65,7 +65,7 @@ namespace GrowSense.Installer
       Console.WriteLine("  GrowSense base dir: " + settings.GrowSenseDirectory);
       Console.WriteLine("  GrowSense index dir: " + settings.IndexDirectory);
       Console.WriteLine("  Installer dir: " + settings.InstallerDirectory);
-      Console.WriteLine("  Version (target): " + (!String.IsNullOrEmpty(settings.Version) ? settings.Version : "latest"));
+      Console.WriteLine("  Version (target): " + (settings.VersionIsSpecified ? settings.Version : "latest"));
       Console.WriteLine("  Allow skip download (if file is found locally): " + settings.AllowSkipDownload);
 
 
