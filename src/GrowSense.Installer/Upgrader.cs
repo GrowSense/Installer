@@ -4,10 +4,12 @@ namespace GrowSense.Installer
   public class Upgrader
   {
     public Installer Installer;
+    public CoreCommandExecutor Executor;
     
     public Upgrader(Settings settings)
     {
       Installer = new Installer(settings);
+      Executor = new CoreCommandExecutor(settings);
     }
 
     public void Upgrade()
@@ -25,12 +27,18 @@ namespace GrowSense.Installer
 
     public void PreUpgrade()
     {
-      throw new NotImplementedException();
+      Console.WriteLine("Preparing to upgrade GrowSense...");
+
+      Console.WriteLine("  Stopping GrowSense system services...");
+
+      Executor.ExecuteCoreCommand("stop");
+
+      Console.WriteLine("Finished preparing to upgrade GrowSense.");
     }
 
     public void PostUpgrade()
     {
-      throw new NotImplementedException();
+      
     }
   }
 }
