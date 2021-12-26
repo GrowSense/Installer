@@ -8,11 +8,15 @@ namespace GrowSense.Installer
   {
     public Settings Settings;
     public ReleaseDownloader Downloader;
+    public CoreCommandExecutor Executor;
+    public Exiter Exiter;
     
     public Installer(Settings settings)
     {
       Settings = settings;
       Downloader = new ReleaseDownloader(settings);
+      Executor = new CoreCommandExecutor(settings);
+      Exiter = new Exiter(settings);
     }
 
     public void Install()
@@ -39,30 +43,21 @@ namespace GrowSense.Installer
       Console.WriteLine("  Index dir: " + indexDir);
       Console.WriteLine("  Is test: " + Settings.IsTest);
       
-      var starter = new ProcessStarter(indexDir); 
-      starter.Start("bash gs.sh post-install --version=" + Settings.Version + " --mock-systemctl=" + Settings.IsTest + " --mock-docker=" + Settings.IsTest);
+      Executor.ExecuteCoreCommand("post-install --version=" + Settings.Version + " --mock-systemctl=" + Settings.IsTest + " --mock-docker=" + Settings.IsTest);
 
-      if (starter.IsError)
+      if (Executor.IsError)
       {
         Console.WriteLine("Error: An error occurred during installation.");
-        Exit(1);
+        Exiter.Exit(1);
       }
 
-      if (starter.Output.IndexOf("GrowSense installation verified") == -1)
+      if (Executor.Starter.Output.IndexOf("GrowSense installation verified") == -1)
       {
         Console.WriteLine("Error: GrowSense installation was not verified.");
-        Exit(1);
+        Exiter.Exit(1);
       }
 
       Console.WriteLine("Finished execuing post install actions.");
-    }
-
-    private void Exit(int v)
-    {
-      if (!Settings.IsTest)
-        Environment.Exit(1);
-      else
-        throw new Exception("Failed");
     }
 
     public void Verify(string indexDir)

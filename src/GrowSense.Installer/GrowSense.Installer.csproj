@@ -57,6 +57,8 @@
     <Compile Include="Upgrader.cs" />
     <Compile Include="Uninstaller.cs" />
     <Compile Include="Reinstaller.cs" />
+    <Compile Include="CoreCommandExecutor.cs" />
+    <Compile Include="Exiter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GitHub\" />
