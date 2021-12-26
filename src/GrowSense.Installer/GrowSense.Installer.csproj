@@ -53,6 +53,7 @@
     <Compile Include="ReleaseDownloader.cs" />
     <Compile Include="GitHub\ReleaseInfo.cs" />
     <Compile Include="GitHub\ReleaseIdentifier.cs" />
+    <Compile Include="SettingsArgumentsExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GitHub\" />

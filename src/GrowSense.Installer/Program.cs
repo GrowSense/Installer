@@ -17,10 +17,9 @@ namespace GrowSense.Installer
       var settings = new Settings();
       //var versionDetector = new VersionDetector(settings);
 
-      settings.Branch = arguments["branch"];
-      settings.ParentDirectory = Path.GetFullPath(arguments["install-to"]);
-      if (arguments.Contains("to")) // Argument alias
-        settings.ParentDirectory = Path.GetFullPath(arguments["to"]);
+
+      var settingsExtractor = new SettingsArgumentsExtractor();
+      settingsExtractor.ExtractArgumentsFromSettings(arguments, settings);
 
       FixBaseInstallDirectory(settings);
 
@@ -34,17 +33,6 @@ namespace GrowSense.Installer
         throw new ArgumentException("Error: The install-to argument was not specified.");
       }
 
-      if (arguments.Contains("enable-download"))
-        settings.EnableDownload = Convert.ToBoolean(arguments["enable-download"]);
-      else
-        settings.EnableDownload = true;
-
-      if (arguments.Contains("allow-skip-download"))
-        settings.AllowSkipDownload = Convert.ToBoolean(arguments["allow-skip-download"]);
-
-      if (arguments.Contains("version"))
-        settings.Version = arguments["version"].Replace(".", "-");
-        
         
 
       //var releaseUrl = releaseIdentifier.GetLatestReleaseUrl(Settings.Branch);
