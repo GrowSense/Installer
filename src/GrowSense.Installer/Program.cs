@@ -23,17 +23,9 @@ namespace GrowSense.Installer
 
       FixBaseInstallDirectory(settings);
 
-      if (String.IsNullOrEmpty(settings.Branch))
-      {
-        Console.WriteLine("  Branch argument not specified. Choosing dev branch.");
-      }
+      VerifySettingsAndArguments(settings, arguments);
 
-      if (String.IsNullOrEmpty(settings.ParentDirectory))
-      {
-        throw new ArgumentException("Error: The install-to argument was not specified.");
-      }
-
-        
+        // TODO: Remove if not needed. Should be obsolete
 
       //var releaseUrl = releaseIdentifier.GetLatestReleaseUrl(Settings.Branch);
 
@@ -45,29 +37,26 @@ namespace GrowSense.Installer
         Console.WriteLine("  Skipping detect version");*/
 
 
-      if (arguments.KeylessArguments.Length == 0)
-      {
-        Console.WriteLine("  Please specify a command as an argument: install, upgrade, uninstall, reinstall");
-        Environment.Exit(1);
-      }
 
       var command = arguments.KeylessArguments[0];
-
-      var installer = new Installer(settings);
 
       switch (command)
       {
         case "install":
+          var installer = new Installer(settings);
           installer.Install();
           break;
         case "upgrade":
-          installer.Upgrade();
+          var upgrader = new Upgrader(settings);
+          upgrader.Upgrade();
           break;
         case "uninstall":
-          installer.Uninstall();
+          var uninstaller = new Uninstaller(settings);
+          uninstaller.Uninstall();
           break;
         case "reinstall":
-          installer.Reinstall();
+          var reinstaller = new Reinstaller(settings);
+          reinstaller.Reinstall();
           break;
         default:
           Console.WriteLine("  Unknown command: " + command);
@@ -75,7 +64,7 @@ namespace GrowSense.Installer
           break;
       }
     }
-
+    
     static public void FixBaseInstallDirectory(Settings settings)
     {
       if (settings.ParentDirectory.TrimEnd('/').EndsWith("Index"))
@@ -83,6 +72,27 @@ namespace GrowSense.Installer
         
       if (settings.ParentDirectory.TrimEnd('/').EndsWith("GrowSense"))
         settings.ParentDirectory = Path.GetDirectoryName(settings.ParentDirectory.TrimEnd('/'));
+    }
+
+    static public void VerifySettingsAndArguments(Settings settings, Arguments arguments)
+    {
+      if (String.IsNullOrEmpty(settings.Branch))
+      {
+        Console.WriteLine("  Branch argument not specified. Using dev branch...");
+        settings.Branch = "dev";
+      }
+
+      if (String.IsNullOrEmpty(settings.ParentDirectory))
+      {
+        Console.WriteLine("  Parent directory not specified. Using /usr/local/...");
+        settings.ParentDirectory = "/usr/local";
+      }
+
+      if (arguments.KeylessArguments.Length == 0)
+      {
+        Console.WriteLine("  Please specify a command as an argument: install, upgrade, uninstall, reinstall");
+        Environment.Exit(1);
+      }
     }
   }
 }

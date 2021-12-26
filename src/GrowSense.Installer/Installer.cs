@@ -136,20 +136,7 @@ namespace GrowSense.Installer
     {
       throw new NotImplementedException();
     }
-
-    public void Upgrade()
-    {
-      Console.WriteLine("Upgrading GrowSense...");
     
-      Preupgrade();
-      throw new Exception("sdf");
-      Install();
-    }
-
-    public void Preupgrade()
-    {
-    }
-
     public string ExtractReleaseZip(string localZipFile)
     {
       var growSenseIndexDir = Path.Combine(Settings.GrowSenseDirectory, Settings.ProjectName);

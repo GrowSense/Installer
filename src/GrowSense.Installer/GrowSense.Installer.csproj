@@ -54,6 +54,9 @@
     <Compile Include="GitHub\ReleaseInfo.cs" />
     <Compile Include="GitHub\ReleaseIdentifier.cs" />
     <Compile Include="SettingsArgumentsExtractor.cs" />
+    <Compile Include="Upgrader.cs" />
+    <Compile Include="Uninstaller.cs" />
+    <Compile Include="Reinstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GitHub\" />
