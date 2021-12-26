@@ -26,7 +26,7 @@ namespace GrowSense.Installer.GitHub
 
       if (latestRelease == null || latestRelease.Assets.Length == 0)
       {
-        throw new Exception("Can't find release for version " + version + " and " + branch + " branch.");
+        throw new Exception("Can't find release for version '" + version + "' and branch '" + branch + "'.");
       }
 
       ReleaseUrl = latestRelease.Assets[0].BrowserDownloadUrl.ToString();
