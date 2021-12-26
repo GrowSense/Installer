@@ -1,6 +1,7 @@
 echo ""
 echo "[GSInstaller | download-installer.sh] Downloading GrowSense installer then installing..."
 
+command=$1
 
 for ARGUMENT in "$@"
 do
@@ -14,32 +15,33 @@ do
             --version)    version=${VALUE} ;;     
             *)   
     esac    
-
-
 done
 
-echo "[GSInstaller | download-installer.sh]   Branch: $branch"
-echo "[GSInstaller | download-installer.sh]   Version: $version"
-echo "[GSInstaller | download-installer.sh]   Install to: $install_to"
 
-#BRANCH=$1
-#install_to=$2
-
-#if [ ! "$branch" ]; then
-#  echo "  [GSInstaller | download-installer.sh] Branch not provided as argument. Getting branch from local git repo..."
-#  BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-#fi
+if [ ! "$command" ]; then
+  echo "[GSInstaller | download-installer.sh]   No command provided as argument. Using: install"
+  exit 1
+fi
 
 if [ ! "$branch" ]; then
-  echo "[GSInstaller | download-installer.sh]   Branch not provided as argument. Using 'dev' default..."
+  echo "[GSInstaller | download-installer.sh]   Branch not provided as argument. Using: dev"
   branch=dev
 fi
 
+if [ ! "$branch" ]; then
+  echo "[GSInstaller | download-installer.sh]   Version not provided as argument. Using: latest"
+  version="latest"
+fi
+
 if [ ! "$install_to" ]; then
-  echo "[GSInstaller | download-installer.sh]   GrowSense base directory not provided as argument. Using '/usr/local/GrowSense/' default..."
+  echo "[GSInstaller | download-installer.sh]   Install (parent) directory not provided as argument. Using: /usr/local/"
   install_to="/usr/local/"
 fi
 
+echo "[GSInstaller | download-installer.sh]   Command: $command"
+echo "[GSInstaller | download-installer.sh]   Branch: $branch"
+echo "[GSInstaller | download-installer.sh]   Version: $version"
+echo "[GSInstaller | download-installer.sh]   Install to: $install_to"
 
 if [[ "$install_to" == *"Index" ]] || [[ "$install_to" == *"Index/" ]]; then
   echo "[GSInstaller | download-installer.sh]   Install to contains /Index/. Stripping back to parent directory..."
@@ -59,7 +61,7 @@ installer_dir="$install_to/GrowSense/Installer"
 growsense_dir="$install_to/GrowSense"
 
 echo "[GSInstaller | download-installer.sh]  Branch: $branch"
-echo "[GSInstaller | download-installer.sh]  GrowSense Base Directory: $growsense_dir"
+echo "[GSInstaller | download-installer.sh]  GrowSense base Directory: $growsense_dir"
 echo "[GSInstaller | download-installer.sh]  Installer Directory: $installer_dir"
 
 
