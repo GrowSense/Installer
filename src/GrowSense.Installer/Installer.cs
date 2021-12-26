@@ -8,6 +8,7 @@ namespace GrowSense.Installer
   {
     public Settings Settings;
     public ReleaseDownloader Downloader;
+    
     public Installer(Settings settings)
     {
       Settings = settings;
