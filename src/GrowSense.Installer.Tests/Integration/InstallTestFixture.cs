@@ -27,7 +27,7 @@ namespace GrowSense.Installer.Tests.Integration
       var settings = new Settings();
       settings.Branch = branch;
       settings.ParentDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
-      settings.EnableDownload = false;
+      //settings.EnableDownload = false; // Commented out so release zips can be downloaded on the build server. Uncomment to force use of local zip on development workstation.
       settings.AllowSkipDownload = true;
       settings.IsTest = true;
       settings.Version = version;
