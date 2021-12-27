@@ -26,6 +26,9 @@ namespace GrowSense.Installer
 
       if (arguments.Contains("version"))
         settings.Version = arguments["version"].Replace(".", "-");
+        
+      if (arguments.Contains("force"))
+        settings.Force = Convert.ToBoolean(arguments["force"]);
                 
       if (arguments.Contains("test"))
         settings.IsTest = Convert.ToBoolean(arguments["test"]);

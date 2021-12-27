@@ -12,6 +12,7 @@ namespace GrowSense.Installer.Tests
     public string TemporaryDirectory;
     public TemporaryDirectoryCreator TmpDirCreator = new TemporaryDirectoryCreator ();
     public bool ForceDownload = false;
+    public bool ForceUpgrade = false;
 
     [SetUp]
     public void Initialize ()
