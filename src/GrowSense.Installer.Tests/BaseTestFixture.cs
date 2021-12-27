@@ -282,11 +282,13 @@ namespace GrowSense.Installer.Tests
         starter.Start("bash build-cli.sh");
         starter.Start("bash create-release-zip.sh");
 
-        var releaseFile = Directory.GetFiles(sourceIndexPath + "/releases/")[0];
+        var sourceReleaseFilePath = Directory.GetFiles(sourceIndexPath + "/releases/")[0];
 
-        File.Copy(releaseFile, Environment.CurrentDirectory + "/GrowSenseIndex.zip");
-        
-        //CopyDirectory(sourceIndexPath, testIndexPath, true);
+        var releaseFileName = Path.GetFileName(sourceReleaseFilePath);
+
+        var destinationReleaseFilePath = Environment.CurrentDirectory + "/" + releaseFileName;
+
+        File.Copy(sourceReleaseFilePath, destinationReleaseFilePath);
       }
       else // On build server, pull it from GitHub
       {

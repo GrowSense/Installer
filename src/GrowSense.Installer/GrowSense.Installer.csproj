@@ -59,6 +59,8 @@
     <Compile Include="Reinstaller.cs" />
     <Compile Include="CoreCommandExecutor.cs" />
     <Compile Include="Exiter.cs" />
+    <Compile Include="FileNameVersionExtractor.cs" />
+    <Compile Include="LocalReleaseVersionAnalyser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GitHub\" />

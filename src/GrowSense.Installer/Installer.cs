@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using GrowSense.Installer.GitHub;
+using System.Collections.Generic;
 namespace GrowSense.Installer
 {
   public class Installer
@@ -10,6 +11,7 @@ namespace GrowSense.Installer
     public ReleaseDownloader Downloader;
     public CoreCommandExecutor Executor;
     public Exiter Exiter;
+    public LocalReleaseVersionAnalyser LocalVersionAnalyser;
     
     public Installer(Settings settings)
     {
@@ -17,6 +19,7 @@ namespace GrowSense.Installer
       Downloader = new ReleaseDownloader(settings);
       Executor = new CoreCommandExecutor(settings);
       Exiter = new Exiter(settings);
+      LocalVersionAnalyser = new LocalReleaseVersionAnalyser(settings);
     }
 
     public void Install()
@@ -25,7 +28,7 @@ namespace GrowSense.Installer
 
       EnsureDirectoryExists(Settings.ParentDirectory);
 
-      var localZipFile = GetReleaseZipFile();
+      var localZipFile = GetReleaseZipFilePath();
 
       var indexDir = ExtractReleaseZip(localZipFile);
 
@@ -74,13 +77,18 @@ namespace GrowSense.Installer
         throw new FileNotFoundException("Install failed. GrowSense Index gs.sh script not found: " + gsScriptPath);
     }
 
-    public string GetReleaseZipFile()
+    public string GetReleaseZipFilePath()
     {
       if (SkipReleaseDownload())
       {
         Console.WriteLine("  Skipping download.");
 
-        var fileName = "GrowSenseIndex.zip";
+        var latestVersion = Settings.Version;
+
+        if (latestVersion == "latest")
+          latestVersion = LocalVersionAnalyser.GetLatestVersionFromLocalReleaseZipFiles();
+
+        var fileName = "GrowSense-Index." + latestVersion + "-" + Settings.Branch + ".zip";
 
         var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
 
@@ -173,5 +181,6 @@ namespace GrowSense.Installer
       else
         Console.WriteLine("  Install directory exists.");
     }
+
   }
 }

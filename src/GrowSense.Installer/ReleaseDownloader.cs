@@ -20,7 +20,8 @@ namespace GrowSense.Installer
 
       // var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
 
-      var fileName = "GrowSenseIndex.zip";
+      //var fileName = "GrowSense-Index." + Settings.Version + "-" + Settings.Branch + ".zip";
+      var fileName = Path.GetFileName(releaseUrl);
 
       var installerDir = Settings.InstallerDirectory;
 
