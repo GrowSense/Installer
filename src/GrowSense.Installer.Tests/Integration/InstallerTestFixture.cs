@@ -4,7 +4,7 @@ using System.IO;
 namespace GrowSense.Installer.Tests.Integration
 {
 [TestFixture]
-  public class InstallTestFixture : BaseTestFixture
+  public class InstallerTestFixture : BaseTestFixture
   {
     [Test]
     public void Test_Install()
