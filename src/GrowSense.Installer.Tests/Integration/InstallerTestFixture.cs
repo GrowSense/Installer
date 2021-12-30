@@ -11,26 +11,19 @@ namespace GrowSense.Installer.Tests.Integration
     {
       ForceDownload = false; // Set this to true to test the download functionality. Otherwise leave it as false for faster tests.
       
-      var branchDetector = new BranchDetector(ProjectDirectory);
-      var branch = branchDetector.Branch;
+      
+      var version = "latest"; //GetGrowSenseVersion(branch);
+      var branch = GetBranch();
       
       MoveToTemporaryDirectory();
 
-      var version = "latest"; //GetGrowSenseVersion(branch);
-      
-      PullGrowSenseIndexReleaseZip(version);
+      CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
 
       var starter = new ProcessStarter();
 
       var destination = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
 
-      var settings = new Settings();
-      settings.Branch = branch;
-      settings.ParentDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
-      //settings.EnableDownload = false; // Commented out so release zips can be downloaded on the build server. Uncomment to force use of local zip on development workstation.
-      settings.AllowSkipDownload = true;
-      settings.IsTest = true;
-      settings.Version = version;
+      var settings = GetSettings(branch, version);
       
       var installer = new Installer(settings);
       installer.Install();

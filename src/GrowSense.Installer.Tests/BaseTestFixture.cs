@@ -14,6 +14,8 @@ namespace GrowSense.Installer.Tests
     public bool ForceDownload = false;
     public bool ForceUpgrade = false;
 
+    //public TestHelper Helper = new TestHelper();
+
     [SetUp]
     public void Initialize ()
     {
@@ -262,7 +264,7 @@ namespace GrowSense.Installer.Tests
       return branchDetector.Branch;
     }
 
-    public void PullGrowSenseIndexReleaseZip(string version)
+    public void CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(string version)
     {
       Console.WriteLine("Getting GrowSense Index files...");
 
@@ -298,7 +300,7 @@ namespace GrowSense.Installer.Tests
         var settings = new Settings();
         settings.Branch = branch;
         settings.Version = version;
-        settings.ParentDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
+        settings.ParentDirectory = Path.Combine(Environment.CurrentDirectory, "../../");
 
         var releaseIdentifier = new ReleaseIdentifier();
         releaseIdentifier.Initialize(settings.Branch, settings.Version);
@@ -361,6 +363,41 @@ namespace GrowSense.Installer.Tests
 
       return version;
         
-    }    
+    }
+
+    public Settings GetSettings(string branch, string version)
+    {
+    
+      var indexDir = Path.Combine(ProjectDirectory, "../Index");
+
+      var isOnDevEnvironment = Directory.Exists(indexDir);
+
+      var destination = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
+
+      var settings = new Settings();
+      settings.Branch = branch;
+      settings.ParentDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
+      settings.IsTest = true;
+      settings.Version = version;
+
+      if (!ForceDownload)
+      {
+
+        settings.EnableDownload = true;
+        settings.AllowSkipDownload = false;
+      }
+      else
+      {
+        settings.EnableDownload = !isOnDevEnvironment; // When on local dev environment, disable downloads to ensure release is pulled from local GrowSense Index
+        settings.AllowSkipDownload = true;
+      }
+
+      return settings;
+    }
+
+    public void SetGrowSenseIndexVersion(string indexDirectory, string version)
+    {
+      File.WriteAllText(indexDirectory + "/full-version.txt", "0-0-0-1");
+    }
   }
 }

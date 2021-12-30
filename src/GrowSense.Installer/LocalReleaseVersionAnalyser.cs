@@ -20,7 +20,12 @@ namespace GrowSense.Installer
     {
       var versions = new List<string>();
 
-      foreach (var releaseFilePath in Directory.GetFiles(Settings.InstallerDirectory, "GrowSense-Index*.zip"))
+      var releaseZipFilePaths = Directory.GetFiles(Settings.InstallerDirectory, "GrowSense-Index*.zip");
+
+      if (releaseZipFilePaths.Length == 0)
+        throw new FileNotFoundException("No local release zip file found at " + Settings.InstallerDirectory);
+
+      foreach (var releaseFilePath in releaseZipFilePaths)
       {
         var fileName = Path.GetFileNameWithoutExtension(releaseFilePath);
         var version = VersionExtractor.ExtractVersionFromFileName(fileName);
@@ -28,7 +33,7 @@ namespace GrowSense.Installer
         versions.Add(version.Replace("-", "."));
       }
 
-      return versions.OrderByDescending(v => Version.Parse(v)).FirstOrDefault().Replace(".", "-");
+        return versions.OrderByDescending(v => Version.Parse(v)).FirstOrDefault().Replace(".", "-");
     }
   }
 }

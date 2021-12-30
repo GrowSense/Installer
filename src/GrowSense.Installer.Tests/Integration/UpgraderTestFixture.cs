@@ -12,35 +12,26 @@ namespace GrowSense.Installer.Tests.Integration
     {
       ForceDownload = false; // Set this to true to test the download functionality. Otherwise leave it as false for faster tests.
       ForceUpgrade = false;
-      
-      var branchDetector = new BranchDetector(ProjectDirectory);
-      var branch = branchDetector.Branch;
+
+      var version = "latest"; //GetGrowSenseVersion(branch);      
+      var branch = GetBranch();
       
       MoveToTemporaryDirectory();
-
-      var version = "latest"; //GetGrowSenseVersion(branch);
       
-      PullGrowSenseIndexReleaseZip(version);
+      CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
 
-      var destination = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
-
-      var settings = new Settings();
-      settings.Branch = branch;
-      settings.ParentDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Environment.CurrentDirectory));
-      //settings.EnableDownload = false; // Commented out so release zips can be downloaded on the build server. Uncomment to force use of local zip on development workstation.
-      settings.AllowSkipDownload = true;
-      settings.IsTest = true;
-      settings.Version = version;
+      var settings = GetSettings(branch, version);
       
+      // Install GrowSense Index to prepare for an upgrade
       var installer = new Installer(settings);
       installer.Install();
 
-      File.WriteAllText(settings.IndexDirectory + "/full-version.txt", "0-0-0-1");
+      // Set the installed version to a low value to force an upgrade
+      SetGrowSenseIndexVersion(settings.IndexDirectory, "0-0-0-1");
       
+      // Run the upgrader
       var upgrader = new Upgrader(settings);
       upgrader.Upgrade();
-
-      //Assert.IsFalse(starter.IsError, "An error occurred");
     }
   }
 }
