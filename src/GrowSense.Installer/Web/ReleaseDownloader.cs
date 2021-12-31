@@ -49,9 +49,7 @@ namespace GrowSense.Installer.Web
         Directory.CreateDirectory(installerDir);
 
       var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
-      // TODO: Clean up
-      //destination = "test.zip"; //Path.GetFullPath("test.zip");
-
+      
       Downloader.Download(releaseUrl, localZipFilePath);
 
       return localZipFilePath;

@@ -12,14 +12,11 @@ namespace GrowSense.Installer.Tests.Integration
       ForceDownload = false; // Set this to true to test the download functionality. Otherwise leave it as false for faster tests.
       
       
-      var version = "latest"; //GetGrowSenseVersion(branch);
+      var version = "latest";
       var branch = GetBranch();
       
       MoveToTemporaryDirectory();
 
-// TODO: Clean up
-      //CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
-      
       if (UseLocalGrowSenseIndex())
       {
         CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);

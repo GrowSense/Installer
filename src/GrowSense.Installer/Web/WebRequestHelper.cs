@@ -14,7 +14,8 @@ namespace GrowSense.Installer.Web
     {
       ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
       
-        var output = "";
+      var output = "";
+      
       try
       {
         var request = HttpWebRequest.Create(url);
