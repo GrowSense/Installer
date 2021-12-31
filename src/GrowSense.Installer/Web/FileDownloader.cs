@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-namespace GrowSense.Installer
+namespace GrowSense.Installer.Web
 {
   public class FileDownloader
   {
@@ -21,6 +21,11 @@ namespace GrowSense.Installer
       }
       catch (WebException wex)
       {
+        Console.WriteLine("    WebException occurred.");
+
+        if (wex.ToString().IndexOf("Sharing violation") > -1)
+          throw new Exception("IO sharing violation.");
+        
         if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
         {
           throw new Exception("File not found at: " + url);
@@ -30,7 +35,6 @@ namespace GrowSense.Installer
       {
         var starter = new ProcessStarter();
         starter.Start("wget " + url + " -O " + destination);
-
       }
     }
   }

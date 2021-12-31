@@ -5,7 +5,7 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-namespace GrowSense.Installer.GitHub
+namespace GrowSense.Installer.Web.GitHub
 {
   public class ReleaseInfo
   {

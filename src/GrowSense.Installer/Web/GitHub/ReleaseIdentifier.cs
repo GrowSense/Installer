@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Linq;
-namespace GrowSense.Installer.GitHub
+namespace GrowSense.Installer.Web.GitHub
 {
   public class ReleaseIdentifier
   {

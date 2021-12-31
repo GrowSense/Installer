@@ -17,8 +17,13 @@ namespace GrowSense.Installer.Tests.Integration
       var branch = GetBranch();
       
       MoveToTemporaryDirectory();
-      
-      CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
+
+      if (UseLocalGrowSenseIndex())
+      {
+        CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
+      }
+      else
+        Console.WriteLine("  Skipping create release zip from local index files...");
 
       var settings = GetSettings(branch, version);
       

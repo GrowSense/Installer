@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using GrowSense.Installer.GitHub;
+using GrowSense.Installer.Web.GitHub;
 
 namespace GrowSense.Installer
 {
@@ -22,19 +22,6 @@ namespace GrowSense.Installer
       FixBaseInstallDirectory(settings);
 
       VerifySettingsAndArguments(settings, arguments);
-
-        // TODO: Remove if not needed. Should be obsolete
-
-      //var releaseUrl = releaseIdentifier.GetLatestReleaseUrl(Settings.Branch);
-
-      /*if (!settings.AllowSkipDownload || !File.Exists(settings.InstallerDirectory + "/GrowSenseIndex.zip"))
-      {
-        settings.Version = versionDetector.Detect();
-      }
-      else
-        Console.WriteLine("  Skipping detect version");*/
-
-
 
       var command = arguments.KeylessArguments[0];
 

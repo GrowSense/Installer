@@ -11,7 +11,7 @@ namespace GrowSense.Installer.Tests
 
     public string Create(string startingDirectory)
     {
-      var projectName = Path.GetFileName(startingDirectory);
+      var projectName = "Installer"; //Path.GetFileName(startingDirectory);
 
       var tmpDir = Path.GetFullPath(startingDirectory + "/../" + projectName + ".tmp");
 

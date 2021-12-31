@@ -17,7 +17,15 @@ namespace GrowSense.Installer.Tests.Integration
       
       MoveToTemporaryDirectory();
 
-      CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
+// TODO: Clean up
+      //CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
+      
+      if (UseLocalGrowSenseIndex())
+      {
+        CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(version);
+      }
+      else
+        Console.WriteLine("  Skipping create release zip from local index files...");
 
       var starter = new ProcessStarter();
 

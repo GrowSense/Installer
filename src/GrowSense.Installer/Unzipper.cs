@@ -19,24 +19,19 @@ namespace GrowSense.Installer
       if (!Directory.Exists(destination))
         Directory.CreateDirectory(destination);
 
-      foreach (var file in ZipFile.Open(zipFile, ZipArchiveMode.Read).Entries)
+      using (var contents = ZipFile.Open(zipFile, ZipArchiveMode.Read))
       {
-        /*if (!String.IsNullOrEmpty(f.Name))
-         {
-           var destinationFileName = destination + "/" + f.Name;
-           f.ExtractToFile(destinationFileName, true);
-           //ZipFile.ExtractToDirectory(zipFile, destination);
-         }*/
+        foreach (var file in contents.Entries)
+        {
+          string completeFileName = Path.Combine(destination, file.FullName);
+          string directory = Path.GetDirectoryName(completeFileName);
 
+          if (!Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
 
-        string completeFileName = Path.Combine(destination, file.FullName);
-        string directory = Path.GetDirectoryName(completeFileName);
-
-        if (!Directory.Exists(directory))
-          Directory.CreateDirectory(directory);
-
-        if (file.Name != "")
-          file.ExtractToFile(completeFileName, true);
+          if (file.Name != "")
+            file.ExtractToFile(completeFileName, true);
+        }
       }
     }
   }

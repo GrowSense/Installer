@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 namespace GrowSense.Installer
 {
-  public class LocalReleaseVersionAnalyser
+  public class InternalReleaseVersionAnalyser
   {
     public Settings Settings;
 
     public FileNameVersionExtractor VersionExtractor;
     
-    public LocalReleaseVersionAnalyser(Settings settings)
+    public InternalReleaseVersionAnalyser(Settings settings)
     {
       Settings = settings;
       VersionExtractor = new FileNameVersionExtractor(settings);
     }
     
-    public string GetLatestVersionFromLocalReleaseZipFiles()
+    public string GetLatestVersionFromInternalReleaseZipFiles()
     {
       var versions = new List<string>();
 
@@ -33,7 +33,7 @@ namespace GrowSense.Installer
         versions.Add(version.Replace("-", "."));
       }
 
-        return versions.OrderByDescending(v => Version.Parse(v)).FirstOrDefault().Replace(".", "-");
+      return versions.OrderByDescending(v => Version.Parse(v)).FirstOrDefault().Replace(".", "-");
     }
   }
 }

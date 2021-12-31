@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
-using GrowSense.Installer.GitHub;
+using GrowSense.Installer.Web.GitHub;
+using GrowSense.Installer.Web;
 
 
 namespace GrowSense.Installer.Tests
@@ -266,52 +267,52 @@ namespace GrowSense.Installer.Tests
 
     public void CreateGrowSenseIndexReleaseZipAndPullToInstallerDirectory(string version)
     {
-      Console.WriteLine("Getting GrowSense Index files...");
+      Console.WriteLine("Creating GrowSense Index release zip file...");
 
       var testIndexPath = Path.GetFullPath(Environment.CurrentDirectory + "/../../Index");
 
       Console.WriteLine("  Test index path: " + testIndexPath);
+
+      var sourceIndexPath = GetSourceIndexPath();
+
+      var starter = new ProcessStarter(sourceIndexPath);
+      starter.Start("bash build-cli.sh");
+      starter.Start("bash create-release-zip.sh");
+
+      var sourceReleaseFilePath = Directory.GetFiles(sourceIndexPath + "/releases/")[0];
+
+      var releaseFileName = Path.GetFileName(sourceReleaseFilePath);
+
+      var destinationReleaseFilePath = Environment.CurrentDirectory + "/" + releaseFileName;
+
+      File.Copy(sourceReleaseFilePath, destinationReleaseFilePath);
+    }
+
+    public bool UseLocalGrowSenseIndex()
+    {
+      Console.WriteLine("Checking if local GrowSense Index files should be used...");
       
+      var sourceIndexPath = GetSourceIndexPath();
+      
+      var indexIsFoundLocally = Directory.Exists(sourceIndexPath);
+
+      Console.WriteLine("  GrowSense Index is found locally: " + indexIsFoundLocally);
+      Console.WriteLine("  Force download: " + ForceDownload);
+
+      var useLocal = indexIsFoundLocally && !ForceDownload;
+
+      Console.WriteLine("  Use local GrowSense Index files: " + useLocal);
+
+      return useLocal;
+    }
+
+    public string GetSourceIndexPath()
+    {
       var sourceIndexPath = Path.GetFullPath(Environment.CurrentDirectory + "/../../../../Index");
 
       Console.WriteLine("  Source index path: " + sourceIndexPath);
 
-      var indexIsFoundLocally = Directory.Exists(sourceIndexPath);
-
-      // If found locally (on dev machine) copy it over
-      if (indexIsFoundLocally && !ForceDownload)
-      {
-        var starter = new ProcessStarter(sourceIndexPath);
-        starter.Start("bash build-cli.sh");
-        starter.Start("bash create-release-zip.sh");
-
-        var sourceReleaseFilePath = Directory.GetFiles(sourceIndexPath + "/releases/")[0];
-
-        var releaseFileName = Path.GetFileName(sourceReleaseFilePath);
-
-        var destinationReleaseFilePath = Environment.CurrentDirectory + "/" + releaseFileName;
-
-        File.Copy(sourceReleaseFilePath, destinationReleaseFilePath);
-      }
-      else // On build server, pull it from GitHub
-      {
-        var branch = new BranchDetector(ProjectDirectory).Branch;
-        //var starter = new ProcessStarter();
-        var settings = new Settings();
-        settings.Branch = branch;
-        settings.Version = version;
-        settings.ParentDirectory = Path.Combine(Environment.CurrentDirectory, "../../");
-
-        var releaseIdentifier = new ReleaseIdentifier();
-        releaseIdentifier.Initialize(settings.Branch, settings.Version);
-
-        var releaseDownloader = new ReleaseDownloader(settings);
-
-        releaseDownloader.DownloadRelease(releaseIdentifier.ReleaseUrl);
-        //var cloneCommand = "git clone --recursive -b " + branch + " https://github.com/GrowSense/Index.git " + testIndexPath;
-        //starter.Start(cloneCommand);
-      }
-        
+      return sourceIndexPath;
     }
 
     public void PullInstaller()
@@ -380,9 +381,8 @@ namespace GrowSense.Installer.Tests
       settings.IsTest = true;
       settings.Version = version;
 
-      if (!ForceDownload)
+      if (ForceDownload)
       {
-
         settings.EnableDownload = true;
         settings.AllowSkipDownload = false;
       }

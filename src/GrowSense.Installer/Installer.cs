@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using GrowSense.Installer.GitHub;
+using GrowSense.Installer.Web.GitHub;
 using System.Collections.Generic;
+using GrowSense.Installer.Web;
+
 namespace GrowSense.Installer
 {
   public class Installer
@@ -11,7 +13,7 @@ namespace GrowSense.Installer
     public ReleaseDownloader Downloader;
     public CoreCommandExecutor Executor;
     public Exiter Exiter;
-    public LocalReleaseVersionAnalyser LocalVersionAnalyser;
+    public InternalReleaseVersionAnalyser InternalVersionAnalyser;
     
     public Installer(Settings settings)
     {
@@ -19,7 +21,7 @@ namespace GrowSense.Installer
       Downloader = new ReleaseDownloader(settings);
       Executor = new CoreCommandExecutor(settings);
       Exiter = new Exiter(settings);
-      LocalVersionAnalyser = new LocalReleaseVersionAnalyser(settings);
+      InternalVersionAnalyser = new InternalReleaseVersionAnalyser(settings);
     }
 
     public void Install()
@@ -28,7 +30,12 @@ namespace GrowSense.Installer
 
       EnsureDirectoryExists(Settings.ParentDirectory);
 
-      var localZipFile = GetReleaseZipFilePath();
+      var localZipFile = "";
+
+      if (SkipReleaseDownload())
+        localZipFile = GetInternalReleaseZipFilePath();
+      else
+        localZipFile = Downloader.DownloadLatestReleaseZipFile();
 
       var indexDir = ExtractReleaseZip(localZipFile);
 
@@ -77,37 +84,32 @@ namespace GrowSense.Installer
         throw new FileNotFoundException("Install failed. GrowSense Index gs.sh script not found: " + gsScriptPath);
     }
 
-    public string GetReleaseZipFilePath()
+    public string GetInternalReleaseZipFilePath()
     {
-      if (SkipReleaseDownload())
-      {
-        Console.WriteLine("  Skipping download.");
+      Console.WriteLine("Getting internal release zip file path...");
+      
+      //if (SkipReleaseDownload())
+      //{
+      //  Console.WriteLine("  Skipping download.");
 
         var latestVersion = Settings.Version;
 
         if (latestVersion == "latest")
-          latestVersion = LocalVersionAnalyser.GetLatestVersionFromLocalReleaseZipFiles();
+          latestVersion = InternalVersionAnalyser.GetLatestVersionFromInternalReleaseZipFiles();
 
         var fileName = "GrowSense-Index." + latestVersion + "-" + Settings.Branch + ".zip";
 
-        var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
+        var internalZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
 
-        return localZipFilePath;
-      }
-      else
-      {
-        var releaseIdentifier = new ReleaseIdentifier();
-        releaseIdentifier.Initialize(Settings.Branch, Settings.Version);
-
-        if (!Settings.VersionIsSpecified)
-          Settings.Version = releaseIdentifier.Version;
-
-        return Downloader.DownloadRelease(releaseIdentifier.ReleaseUrl);
-      }
+        return internalZipFilePath;
+     // }
     }
+
 
     public bool SkipReleaseDownload()
     {
+      Console.WriteLine("Checking whether release zip download should be skipped...");
+      
       var fileName = "GrowSenseIndex.zip";
       
       var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
@@ -123,7 +125,10 @@ namespace GrowSense.Installer
         return true;
       }
       else
+      {
+        Console.WriteLine("  Download should not be skipped.");
         return false;
+      }
     }
 
     public void Reinstall()

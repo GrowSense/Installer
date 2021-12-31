@@ -46,13 +46,8 @@
     <Compile Include="Arguments.cs" />
     <Compile Include="Installer.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="FileDownloader.cs" />
-    <Compile Include="WebRequestHelper.cs" />
     <Compile Include="Unzipper.cs" />
     <Compile Include="ProcessStarter.cs" />
-    <Compile Include="ReleaseDownloader.cs" />
-    <Compile Include="GitHub\ReleaseInfo.cs" />
-    <Compile Include="GitHub\ReleaseIdentifier.cs" />
     <Compile Include="SettingsArgumentsExtractor.cs" />
     <Compile Include="Upgrader.cs" />
     <Compile Include="Uninstaller.cs" />
@@ -60,10 +55,17 @@
     <Compile Include="CoreCommandExecutor.cs" />
     <Compile Include="Exiter.cs" />
     <Compile Include="FileNameVersionExtractor.cs" />
-    <Compile Include="LocalReleaseVersionAnalyser.cs" />
+    <Compile Include="InternalReleaseVersionAnalyser.cs" />
+    <Compile Include="Web\FileDownloader.cs" />
+    <Compile Include="Web\WebRequestHelper.cs" />
+    <Compile Include="Web\ReleaseDownloader.cs" />
+    <Compile Include="Web\GitHub\ReleaseIdentifier.cs" />
+    <Compile Include="Web\GitHub\ReleaseInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GitHub\" />
+    <Folder Include="Web\" />
+    <Folder Include="Local\" />
+    <Folder Include="Web\GitHub\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

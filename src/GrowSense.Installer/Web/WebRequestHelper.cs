@@ -2,7 +2,7 @@
 using System.Net;
 using System.IO;
 using System.Text;
-namespace GrowSense.Installer
+namespace GrowSense.Installer.Web
 {
   public class WebRequestHelper
   {

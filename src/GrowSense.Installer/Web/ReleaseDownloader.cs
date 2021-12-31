@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
-using GrowSense.Installer.GitHub;
-namespace GrowSense.Installer
+using GrowSense.Installer.Web.GitHub;
+
+namespace GrowSense.Installer.Web
 {
   public class ReleaseDownloader
   {
@@ -12,15 +13,31 @@ namespace GrowSense.Installer
     {
       Settings = settings;
     }
+    
+    public string DownloadLatestReleaseZipFile()
+    {
+      Console.WriteLine("  Downloading latest release zip file...");
+
+      var releaseIdentifier = new ReleaseIdentifier();
+      releaseIdentifier.Initialize(Settings.Branch, Settings.Version);
+
+      if (!Settings.VersionIsSpecified)
+        Settings.Version = releaseIdentifier.Version;
+
+      Console.WriteLine("    Version: " + releaseIdentifier.Version);
+      Console.WriteLine("    URL: " + releaseIdentifier.ReleaseUrl);
+
+      return DownloadRelease(releaseIdentifier.ReleaseUrl);
+    }
 
     public string DownloadRelease(string releaseUrl)
     {
+      Console.WriteLine("  Downloading release...");
+      Console.WriteLine("    Release URL: " + releaseUrl);
+      
       if (String.IsNullOrEmpty(Settings.InstallerDirectory))
         throw new Exception("Settings.InstallerDirectory is not set.");
 
-      // var releaseUrl = "https://github.com/" + Settings.ProjectFamily + "/" + Settings.ProjectName + "/releases/download/v" + Settings.Version + "-" + Settings.Branch + "/" + Settings.ProjectFamily + "-" + Settings.ProjectName + "." + Settings.Version + "-" + Settings.Branch + ".zip";
-
-      //var fileName = "GrowSense-Index." + Settings.Version + "-" + Settings.Branch + ".zip";
       var fileName = Path.GetFileName(releaseUrl);
 
       var installerDir = Settings.InstallerDirectory;
@@ -32,9 +49,10 @@ namespace GrowSense.Installer
         Directory.CreateDirectory(installerDir);
 
       var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
+      // TODO: Clean up
       //destination = "test.zip"; //Path.GetFullPath("test.zip");
 
-        Downloader.Download(releaseUrl, localZipFilePath);
+      Downloader.Download(releaseUrl, localZipFilePath);
 
       return localZipFilePath;
     }
