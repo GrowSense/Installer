@@ -46,7 +46,7 @@ DIR=$PWD
 echo ""
 echo "  Zipping release..."
 cd bin/Release/
-zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip GSInstaller.exe
+zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip * -x nunit.framework* -x *.Tests.dll
 cd $DIR
 
 #cd $DIR/releases
