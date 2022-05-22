@@ -86,7 +86,7 @@ namespace GrowSense.Installer.Tests.Integration.Internal
             var currentVersion = File.ReadAllText(Path.GetFullPath("../Index/full-version.txt"));
 
             var upgrader = new Upgrader(settings);
-            upgrader.Identifier = new MockReleaseIdentifier(currentVersion);
+            upgrader.Identifier = new MockReleaseIdentifier(settings, currentVersion);
 
             // Run the upgrader
             var didUpgrade = upgrader.Upgrade();

@@ -14,7 +14,7 @@ namespace GrowSense.Installer
         {
             Installer = new Installer(settings);
             Executor = new CoreCommandExecutor(settings);
-            Identifier = new ReleaseIdentifier();
+            Identifier = new ReleaseIdentifier(settings);
             Settings = settings;
         }
 

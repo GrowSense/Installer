@@ -5,7 +5,7 @@ namespace GrowSense.Installer.Tests.Web.GitHub
 {
     public class MockReleaseIdentifier : ReleaseIdentifier
     {   
-        public MockReleaseIdentifier(string version)
+        public MockReleaseIdentifier(Settings settings, string version) : base(settings)
         {
             Version = version;
         }
