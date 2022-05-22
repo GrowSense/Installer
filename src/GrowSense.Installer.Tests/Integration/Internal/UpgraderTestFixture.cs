@@ -9,10 +9,12 @@ namespace GrowSense.Installer.Tests.Integration.Internal
     public class UpgraderTestFixture : BaseTestFixture
     {
         [Test]
-        public void Test_Upgrade_NewVersionAvailable()
+        public void Test_Upgrade_NewVersionAvailable_PerformsUpgrade()
         {
             ForceDownload = false; // Set this to true to test the download functionality. Otherwise leave it as false for faster tests.
             ForceUpgrade = false;
+
+            var supervisorUpgradeFrequency = 10;
 
             var version = "latest"; //GetGrowSenseVersion(branch);      
             var branch = GetBranch();
@@ -35,6 +37,9 @@ namespace GrowSense.Installer.Tests.Integration.Internal
             // Set the installed version to a low value to force an upgrade
             SetGrowSenseIndexVersion(settings.IndexDirectory, "0-0-0-1");
 
+            // Apply settings to the GrowSense index
+            File.WriteAllText(Path.GetFullPath("../Index/supervisor-upgrade-frequency.txt"), supervisorUpgradeFrequency.ToString());
+
             // Run the upgrader
             var upgrader = new Upgrader(settings);
             var didUpgrade = upgrader.Upgrade();
@@ -48,11 +53,14 @@ namespace GrowSense.Installer.Tests.Integration.Internal
             Console.WriteLine("  Version after upgrade: " + detectedVersion);
 
             Assert.AreNotEqual(detectedVersion, "0-0-0-1");
+
+            // Check the settings were kept
+            Assert.AreEqual(supervisorUpgradeFrequency.ToString(), File.ReadAllText(Path.GetFullPath("../Index/supervisor-upgrade-frequency.txt")), "Supervisor upgrade frequency was reset after upgrade");
         }
 
 
         [Test]
-        public void Test_Upgrade_NewVersionNotAvailable()
+        public void Test_Upgrade_NewVersionNotAvailable_SkipsUpgrade()
         {
             ForceDownload = false; // Set this to true to test the download functionality. Otherwise leave it as false for faster tests.
             ForceUpgrade = false;
