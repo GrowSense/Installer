@@ -43,6 +43,7 @@
     <Compile Include="Integration\Internal\UpgraderTestFixture.cs" />
     <Compile Include="Integration\CLI\InstallerCLITestFixture.cs" />
     <Compile Include="Integration\CLI\InstallerCLITestHelper.cs" />
+    <Compile Include="Integration\CLI\UpgraderCLITestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Integration\" />
