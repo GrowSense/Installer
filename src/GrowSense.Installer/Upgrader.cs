@@ -67,7 +67,7 @@ namespace GrowSense.Installer
             if (newVersion == "latest")
                 newVersion = DetectLatestVersion();
 
-            var existingVersion = File.ReadAllText(Settings.IndexDirectory + "/full-version.txt");
+            var existingVersion = File.ReadAllText(Settings.IndexDirectory + "/full-version.txt").Trim();
 
             Console.WriteLine("  Current version: " + existingVersion);
             Console.WriteLine("  New version: " + newVersion);
@@ -95,7 +95,7 @@ namespace GrowSense.Installer
         {
             Identifier.Initialize(Settings.Branch, Settings.Version);
 
-            return Identifier.Version;
+            return Identifier.Version.Trim();
         }
     }
 }
