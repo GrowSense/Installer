@@ -35,7 +35,6 @@ VERSION="$(cat full-version.txt)"
 #cp $BIN_RELEASE_FOLDER/M2Mqtt.Net.dll $TMP_RELEASE_FOLDER/
 
 #echo "$VERSION" > $TMP_RELEASE_FOLDER/full-version.txt
-echo "$VERSION" > full-version.txt
 
 mkdir -p $RELEASES_FOLDER
 
@@ -46,6 +45,7 @@ DIR=$PWD
 echo ""
 echo "  Zipping release..."
 cd bin/Release/
+echo "$VERSION" > full-version.txt
 zip -q -r $DIR/releases/GrowSense-Installer.$VERSION$VERSION_POSTFIX.zip * -x nunit.framework* -x *.Tests.dll
 cd $DIR
 
