@@ -17,7 +17,7 @@ namespace GrowSense.Installer.Web.GitHub
 
       ReleaseInfo latestRelease = null;
 
-      var versionIsSpecified = !String.IsNullOrEmpty(version) && version != "latest";
+      var versionIsSpecified = !String.IsNullOrEmpty(version) && version != "0.0.0.0" && version != "latest";
 
       if (versionIsSpecified)
         latestRelease = GetSpecificReleaseForVersion(branch, version);
