@@ -3,6 +3,7 @@ echo ""
 
 bash build.sh && \
 bash clean.sh && \
+bash pull.sh && \
 bash increment-version.sh && \
 git commit -am "$1" && \
 
