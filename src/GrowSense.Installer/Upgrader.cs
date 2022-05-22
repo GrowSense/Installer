@@ -61,11 +61,15 @@ namespace GrowSense.Installer
         public bool NeedsUpgrade()
         {
             Console.WriteLine("Checking if GrowSense needs upgrade...");
+            Console.WriteLine("  Requested version: " + Settings.Version);
 
             var newVersion = Settings.Version;
 
-            if (newVersion == "latest")
+            if (newVersion == "latest" || newVersion == "0.0.0.0" || newVersion == "")
+            {
+                Console.WriteLine("  Specific version not requested. Detecting latest version...");
                 newVersion = DetectLatestVersion();
+            }
 
             var existingVersion = File.ReadAllText(Settings.IndexDirectory + "/full-version.txt").Trim();
 
