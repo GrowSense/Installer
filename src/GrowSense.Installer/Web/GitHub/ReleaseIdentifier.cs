@@ -54,12 +54,16 @@ namespace GrowSense.Installer.Web.GitHub
 
         public virtual ReleaseInfo[] GetReleasesForBranch(string branch)
         {
+            Console.WriteLine("    Getting latest release for branch: " + branch);
+
             var request = new WebRequestHelper();
 
             var json = request.HttpGet("https://api.github.com/repos/GrowSense/Index/releases", Settings.GitHubUsername, Settings.GitHubToken);
 
             var releases = JsonConvert.DeserializeObject<ReleaseInfo[]>(json);
             var matchingReleases = releases.Where(r => r.TagName.IndexOf(branch) > -1).ToArray();
+
+            Console.WriteLine("      Matching releases: " + matchingReleases.Length);
 
             return matchingReleases;
         }
