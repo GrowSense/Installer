@@ -95,7 +95,12 @@ namespace GrowSense.Installer
         {
             Identifier.Initialize(Settings.Branch, Settings.Version);
 
-            return Identifier.Version.Trim();
+            var latestVersion = Identifier.Version.Trim();
+
+            if (String.IsNullOrEmpty(latestVersion))
+                throw new Exception("Failed to detect latest version: " + latestVersion);
+
+            return latestVersion;
         }
     }
 }
