@@ -44,11 +44,14 @@
     <Compile Include="Integration\CLI\InstallerCLITestFixture.cs" />
     <Compile Include="Integration\CLI\InstallerCLITestHelper.cs" />
     <Compile Include="Integration\CLI\UpgraderCLITestFixture.cs" />
+    <Compile Include="Web\GitHub\MockReleaseIdentifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Integration\" />
     <Folder Include="Integration\Internal\" />
     <Folder Include="Integration\CLI\" />
+    <Folder Include="Web\" />
+    <Folder Include="Web\GitHub\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GrowSense.Installer\GrowSense.Installer.csproj">

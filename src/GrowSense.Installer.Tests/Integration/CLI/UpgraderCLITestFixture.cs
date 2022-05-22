@@ -53,6 +53,8 @@ namespace GrowSense.Installer.Tests.Integration.CLI
 
             Console.WriteLine("  Version after upgrade: " + detectedVersion);
 
+            Assert.AreNotEqual(detectedVersion, "0-0-0-1");
+
         }
     }
 }

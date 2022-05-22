@@ -12,7 +12,7 @@ namespace GrowSense.Installer.Web.GitHub
     {
     }
 
-    public void Initialize(string branch, string version)
+    public virtual void Initialize(string branch, string version)
     {
 
       ReleaseInfo latestRelease = null;
@@ -33,7 +33,7 @@ namespace GrowSense.Installer.Web.GitHub
       Version = latestRelease.TagName.Replace("-" + branch, "").Replace("v", "");
     }
 
-    public ReleaseInfo GetLatestRelease(string branch, string version)
+    public virtual ReleaseInfo GetLatestRelease(string branch, string version)
     {
       var matchingReleases = GetReleasesForBranch(branch);
 
@@ -41,14 +41,14 @@ namespace GrowSense.Installer.Web.GitHub
     }
 
 
-    public ReleaseInfo GetSpecificReleaseForVersion(string branch, string version)
+    public virtual ReleaseInfo GetSpecificReleaseForVersion(string branch, string version)
     {
       var matchingReleases = GetReleasesForBranch(branch);
 
       return matchingReleases.Where(r => r.TagName.IndexOf(version) > -1 && r.Assets.Length > 0).FirstOrDefault();
     }
 
-    public ReleaseInfo[] GetReleasesForBranch(string branch)
+    public virtual ReleaseInfo[] GetReleasesForBranch(string branch)
     {
       var request = new WebRequestHelper();
       var json = request.HttpGet("https://api.github.com/repos/GrowSense/Index/releases");

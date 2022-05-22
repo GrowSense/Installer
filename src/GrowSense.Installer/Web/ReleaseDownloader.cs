@@ -8,8 +8,9 @@ namespace GrowSense.Installer.Web
   {
     public Settings Settings;
     public FileDownloader Downloader = new FileDownloader();
-    
-    public ReleaseDownloader(Settings settings)
+        public ReleaseIdentifier Identifier = new ReleaseIdentifier();
+
+        public ReleaseDownloader(Settings settings)
     {
       Settings = settings;
     }
@@ -18,16 +19,15 @@ namespace GrowSense.Installer.Web
     {
       Console.WriteLine("  Downloading latest release zip file...");
 
-      var releaseIdentifier = new ReleaseIdentifier();
-      releaseIdentifier.Initialize(Settings.Branch, Settings.Version);
+            Identifier.Initialize(Settings.Branch, Settings.Version);
 
       if (!Settings.VersionIsSpecified)
-        Settings.Version = releaseIdentifier.Version;
+        Settings.Version = Identifier.Version;
 
-      Console.WriteLine("    Version: " + releaseIdentifier.Version);
-      Console.WriteLine("    URL: " + releaseIdentifier.ReleaseUrl);
+      Console.WriteLine("    Version: " + Identifier.Version);
+      Console.WriteLine("    URL: " + Identifier.ReleaseUrl);
 
-      return DownloadRelease(releaseIdentifier.ReleaseUrl);
+      return DownloadRelease(Identifier.ReleaseUrl);
     }
 
     public string DownloadRelease(string releaseUrl)
