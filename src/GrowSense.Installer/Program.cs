@@ -47,6 +47,9 @@ namespace GrowSense.Installer
                     Console.WriteLine("");
                     Console.WriteLine("Installer version: " + File.ReadAllText("full-version.txt"));
                     break;
+                case "help":
+                    ConsoleWriteHelp();
+                    break;
                 default:
                     Console.WriteLine("  Unknown command: " + command);
                     Environment.Exit(1);
@@ -82,6 +85,21 @@ namespace GrowSense.Installer
                 Console.WriteLine("  Please specify a command as an argument: install, upgrade, uninstall, reinstall");
                 Environment.Exit(1);
             }
+        }
+
+        static public void ConsoleWriteHelp()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("GrowSense Installer Help");
+            Console.WriteLine("");
+            Console.WriteLine("Commands:");
+            Console.WriteLine("");
+            Console.WriteLine("- install - Installs the GrowSense system");
+            Console.WriteLine("- upgrade - Upgrades the GrowSense system");
+            Console.WriteLine("- uninstall - Uninstalls the GrowSense system");
+            Console.WriteLine("- reinstall - Reinstalls the GrowSense system");
+            Console.WriteLine("- version - Displays the installer version");
+            Console.WriteLine("- help - Displays this help info");
         }
     }
 }
