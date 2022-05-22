@@ -70,3 +70,18 @@ graduate:
     - git pull -f
   script:
     - sh graduate.sh
+    
+version:
+  stage: version
+  tags:
+    - docker
+  before_script:
+    - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
+    - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/installer.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/installer.git
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
+    - git checkout "$CI_COMMIT_BRANCH" && git pull
+    - bash pull.sh
+  script:
+    - bash increment-version.sh
+    - bash push-version.sh
