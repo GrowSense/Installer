@@ -47,8 +47,8 @@ else
 fi
 
 
-echo ""
-echo "  Checking mono version..."
-mono --version
+#echo ""
+#echo "  Checking mono version..."
+#mono --version
 
 echo "Finished installing mono."
