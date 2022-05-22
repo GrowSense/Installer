@@ -130,8 +130,11 @@ namespace GrowSense.Installer
             // Output the errors to the console
             process.ErrorDataReceived += new DataReceivedEventHandler (
                 delegate (object sender, DataReceivedEventArgs e) {
-                    Console.SetOut (c);
-                    c.WriteLine (e.Data);
+                    if (WriteOutputToConsole)
+                    {
+                        Console.SetOut(c);
+                        c.WriteLine(e.Data);
+                    }
                     OutputBuilder.AppendLine (e.Data);
                 }
             );
@@ -139,8 +142,11 @@ namespace GrowSense.Installer
             // Output the data to the console
             process.OutputDataReceived += new DataReceivedEventHandler (
                 delegate (object sender, DataReceivedEventArgs e) {
-                    Console.SetOut (c);
-                    c.WriteLine (e.Data);
+                    if (WriteOutputToConsole)
+                    {
+                        Console.SetOut(c);
+                        c.WriteLine(e.Data);
+                    }
                     OutputBuilder.AppendLine (e.Data);
                 }
             );
