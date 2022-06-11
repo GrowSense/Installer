@@ -17,7 +17,7 @@ namespace GrowSense.Installer.Web
 
         public string HttpGet(string url, string username, string password)
         {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+            //ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
             var output = "";
 

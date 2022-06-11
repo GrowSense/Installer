@@ -38,7 +38,8 @@ namespace GrowSense.Installer.Tests.Integration.CLI
             PullFileFromProject("bin/" + releaseMode + "/GSInstaller.exe", true);
             PullFileFromProject("bin/" + releaseMode + "/Newtonsoft.Json.dll", true);
 
-            starter.Start("mono GSInstaller.exe install --to=../ --version=latest --test=true");
+            var cmd = String.Format("mono GSInstaller.exe install --to=../ --version=latest --test=true --github-username={0} --github-token={1}", settings.GitHubUsername, settings.GitHubToken);
+            starter.Start(cmd);
 
             Assert.IsFalse(starter.IsError, "An error occurred");
         }
@@ -74,7 +75,8 @@ namespace GrowSense.Installer.Tests.Integration.CLI
             PullFileFromProject("bin/" + releaseMode + "/GSInstaller.exe", true);
             PullFileFromProject("bin/" + releaseMode + "/Newtonsoft.Json.dll", true);
 
-            starter.Start("mono GSInstaller.exe install --to=../ --test=true");
+            var cmd = String.Format("mono GSInstaller.exe install --to=../ --test=true --github-username={0} --github-token={1}", settings.GitHubUsername, settings.GitHubToken);
+            starter.Start(cmd);
 
             Assert.IsFalse(starter.IsError, "An error occurred");
         }

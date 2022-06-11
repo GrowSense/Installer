@@ -31,11 +31,18 @@ namespace GrowSense.Installer
             if (arguments.Contains("test"))
                 settings.IsTest = Convert.ToBoolean(arguments["test"]);
 
+            if (arguments.Contains("github-username"))
+                settings.GitHubUsername = arguments["github-username"];
+
+            if (arguments.Contains("github-token"))
+                settings.GitHubToken = arguments["github-token"];
+
             Console.WriteLine("  Branch: " + settings.Branch);
             Console.WriteLine("  Parent install dir: " + settings.ParentDirectory);
             Console.WriteLine("  GrowSense base dir: " + settings.GrowSenseDirectory);
             Console.WriteLine("  GrowSense index dir: " + settings.IndexDirectory);
             Console.WriteLine("  Installer dir: " + settings.InstallerDirectory);
+            Console.WriteLine("  GitHub Username: " + settings.GitHubUsername);
             Console.WriteLine("  Version (target): " + (settings.VersionIsSpecified ? settings.Version : "latest"));
             Console.WriteLine("  Allow skip download (if file is found locally): " + settings.AllowSkipDownload);
         }
