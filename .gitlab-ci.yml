@@ -71,3 +71,4 @@ graduate:
     - git pull -f
   script:
     - sh graduate.sh
+ 
