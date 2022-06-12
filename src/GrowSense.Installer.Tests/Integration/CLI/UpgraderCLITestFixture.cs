@@ -38,20 +38,16 @@ namespace GrowSense.Installer.Tests.Integration.CLI
             PullFileFromProject("bin/" + releaseMode + "/GSInstaller.exe", true);
             PullFileFromProject("bin/" + releaseMode + "/Newtonsoft.Json.dll", true);
 
-            var installCmd = String.Format("mono GSInstaller.exe install --to=../ --version=latest --test=true --github-username={0} --github-token={1}", settings.GitHubUsername, settings.GitHubToken);
+            var installCmd = String.Format("mono GSInstaller.exe install --to=../ --version=latest --allow-skip-download=true --test=true --github-username={0} --github-token={1}", settings.GitHubUsername, settings.GitHubToken);
             starter.Start(installCmd);
-
-            //starter.Start("mono GSInstaller.exe install --to=../ --version=latest --test=true");
 
             Assert.IsFalse(starter.IsError, "An error occurred");
 
             // Set the installed version to a low value to force an upgrade
             SetGrowSenseIndexVersion(settings.IndexDirectory, "0-0-0-1");
 
-            var upgradeCmd = String.Format("mono GSInstaller.exe upgrade --to=../ --test=true --github-username={0} --github-token={1}", settings.GitHubUsername, settings.GitHubToken);
+            var upgradeCmd = String.Format("mono GSInstaller.exe upgrade --to=../ --test=true --allow-skip-download=true --github-username={0} --github-token={1}", settings.GitHubUsername, settings.GitHubToken);
             starter.Start(installCmd);
-
-            //starter.Start("mono GSInstaller.exe upgrade --to=../ --test=true");
 
             Assert.IsFalse(starter.IsError, "An error occurred");
 

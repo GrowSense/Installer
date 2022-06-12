@@ -4,6 +4,7 @@ using System.IO.Compression;
 using GrowSense.Installer.Web.GitHub;
 using System.Collections.Generic;
 using GrowSense.Installer.Web;
+using System.Linq;
 
 namespace GrowSense.Installer
 {
@@ -92,13 +93,10 @@ namespace GrowSense.Installer
         {
             Console.WriteLine("Getting internal release zip file path...");
 
-            //if (SkipReleaseDownload())
-            //{
-            //  Console.WriteLine("  Skipping download.");
-
             var latestVersion = Settings.Version;
+            Console.WriteLine("  Specified version: " + latestVersion);
 
-            if (latestVersion == "latest")
+            if (latestVersion == "latest" || String.IsNullOrEmpty(latestVersion) || latestVersion == "0-0-0-0" || latestVersion == "0.0.0.0")
                 latestVersion = InternalVersionAnalyser.GetLatestVersionFromInternalReleaseZipFiles();
 
             var fileName = "GrowSense-Index." + latestVersion + "-" + Settings.Branch + ".zip";
@@ -106,7 +104,6 @@ namespace GrowSense.Installer
             var internalZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
 
             return internalZipFilePath;
-            // }
         }
 
 
@@ -114,9 +111,7 @@ namespace GrowSense.Installer
         {
             Console.WriteLine("Checking whether release zip download should be skipped...");
 
-            var fileName = "GrowSenseIndex.zip";
-
-            var localZipFilePath = Path.Combine(Settings.InstallerDirectory, fileName);
+            var localZipFilePath = GetLocalGrowSenseZipFilePath();
 
             if (!Settings.EnableDownload)
             {
@@ -223,5 +218,16 @@ namespace GrowSense.Installer
             }
         }
 
+        public string GetLocalGrowSenseZipFilePath()
+        {
+            var installerDir = new DirectoryInfo(Settings.InstallerDirectory);
+            foreach (var file in installerDir.GetFiles("*.zip").OrderBy(f=>f.CreationTime).ToArray())
+            {
+                Console.WriteLine("  Local GrowSense zip file path: " + file);
+                return file.FullName;
+            }
+
+            return "";
+        }
     }
 }
