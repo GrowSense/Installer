@@ -12,8 +12,8 @@ build:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull -f
     - cat full-version.txt
@@ -30,8 +30,8 @@ release:
   tags:
     - docker	
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull -f
     - cat full-version.txt
@@ -46,8 +46,8 @@ test:
   tags:
     - docker
   before_script:
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
     - git pull -f
     - cat full-version.txt
@@ -63,8 +63,9 @@ graduate:
   before_script:
     - git remote set-url origin https://$GHTOKEN@github.com/GrowSense/Installer.git
     - git remote add lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/installer.git || git remote set-url lan http://Internal:$GLTOKEN@10.0.0.101:180/growsense/installer.git
-    - git config --global user.email "admin@makerzone.com.au"
-    - git config --global user.name "John Rebbeck"
+    - git remote add local http://Internal:$GITLAB_TOKEN_LOCAL@$CI_SERVER_HOST:180/growsense/installer.git || git remote set-url local http://Internal:$GITLAB_TOKEN_LOCAL@$CI_SERVER_HOST:180/growsense/installer.git
+    - git config --global user.email "compulsivecoder@gmail.com"
+    - git config --global user.name "CompulsiveCoder"
     - git checkout "$CI_COMMIT_BRANCH"
     - cat full-version.txt
     - git pull -f
